@@ -1,39 +1,5 @@
-# import serial, time
+import serial, time
 
-# Honeywell HPMA115S0-XXX particulate matter sensor
-START_PARTICLE_MEASUREMENT = bytes.fromhex('68010196')
-READ_PARTICLE_MEASURING_RESULTS = bytes.fromhex('68010493')
-STOP_PARTICLE_MEASUREMENT = bytes.fromhex('68010295')
-ENABLE_AUTO_SEND = bytes.fromhex('68014057')
-STOP_AUTO_SEND = bytes.fromhex('68012077')
-RESPONSE_POS_ACK = bytes.fromhex('A5A5')
-RESPONSE_NEG_ACK = bytes.fromhex('9696')
-
-# Sensirion SPS30 particulate matter sensor
-DEVICE_RESET = bytes.fromhex('7E00D3002C7E')
-
-def build_MOSI_frame(command, data=''):
-    start = '7E'
-    address = '00'
-    length = format(len(command), 'x')
-    tx_data = ''.join(data.split())
-    check = ~(sum([int(address, 16),
-                   int(command, 16),
-                   int(length, 16)] +
-                  [int(byte, 16) for byte in data.split()]) & 0xFF)
-    check = format(check, 'x')
-    stop = '7E'
-    frame = start + address + command + length + tx_data + check + stop
-    return frame
-
-print()
-
-def build_MISO_frame(command):
-    pass
-
-class SHDLC:
-    def __init__(self):
-        pass
 
 class SensirionSPS30:
     def __init__(self):
@@ -66,9 +32,56 @@ class SensirionSPS30:
         DEVICE_RESET = bytes.fromhex('7E 00 D3 00 2C 7E')
 
 
+def build_MOSI_frame(command, data=''):
+    """
+    Build the MOSI frame according to specification "Datasheet SPS30
+    Particulate Matter Sensor for Air Quality Monitoring and Control",
+    section "4.1 SHDLC Frame Layer"
+
+    :param command: the UART / SHDLC command. See also "Datasheet SPS30
+    Particulate Matter Sensor for Air Quality Monitoring and Control",
+    section "4.2 UART / SHDLC Commands"
+    :param data: the command data
+    :return: the MOSI frame as string of bytes in hex notation
+    """
+
+    frame = []
+    frame.append('7E')  # start
+    frame.append('00')  # address
+    frame.append(command)  # command
+    frame.append('{:02x}'.format(len(data.split())))  # length
+    frame.append(''.join(data.split())) # TX data
+    check = calculate_checksum([int(frame[1], 16), int(frame[2], 16),
+                                int(frame[3], 16)] + [int(byte, 16)
+                                                      for byte in data.split()])
+    check = '{:02x}'.format(check)
+    frame.append(check)  # check
+    frame.append('7E')  # stop
+    frame = [byte.upper() for byte in frame]
+    frame = byte_stuffing(frame[1:-1])  # bytes stuffing where needed
+    frame = ''.join(frame)
+    return frame
 
 
+def calculate_checksum(data):
+    # Sum all bytes between start and stop (without start and stop bytes).
+    checksum = sum(data)
+    # Take the LSB of the result ...
+    checksum = checksum & 0xFF
+    # ... and invert it. This will be the checksum.
+    checksum = ~checksum & 0xFF
+    return checksum
 
+
+def byte_stuffing(frame):
+    replace = {
+        '7E': '7D 5E',
+        '7D': '7D 5D',
+        '11': '7D 31',
+        '13': '7D 33',
+    }
+    frame = [replace[byte] if byte in replace.keys() else byte for byte in frame]
+    return frame
 
 
 # port = serial.Serial('/dev/serial0',
@@ -105,3 +118,7 @@ class SensirionSPS30:
 # print()
 #
 # port.close()
+
+if __name__ == '__main__':
+    MOSI_frame = build_MOSI_frame('80', data='00')
+    print(MOSI_frame)
