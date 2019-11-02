@@ -2,8 +2,11 @@ import time
 import serial
 import logging.handlers
 
+
 class SHDLC:
     def __init__(self):
+        self.valid_states = ['00', '01', '02', '03', '04', '28', '43']
+        self.last_cmd = None
         self.buffer_size = 64
         self.port = self.open_serial_port()
 
@@ -24,27 +27,50 @@ class SHDLC:
 
     def send_command(self, cmd, data):
         mosi_frame = build_mosi_frame(cmd, data)
-        my_logger.info(miso_frame)
+        my_logger.info('sending MOSI frame: {}'.format(mosi_frame))
+        mosi_frame = bytes.fromhex(mosi_frame)
         self.port.write(mosi_frame)
-        return
+        self.last_cmd = cmd
 
     def get_response(self):
         data = self.port.read(self.buffer_size)
-        miso_frame = ' '.join(['{}'.format(hex(data[pos])) for pos in range(len(data))])
-        my_logger.info(miso_frame)
+        miso_frame = ['{}'.format(hex(data[pos])) for pos in range(len(data))]
+        my_logger.info('received MISO frame: {}'.format(' '.join(miso_frame)))
+        self.validate_miso_frame(miso_frame)
         return data
+    
+    def validate_miso_frame(self, miso_frame):
+        valid = True
+        if not miso_frame[0] == '7E':  # start
+            valid = False
+            my_logger.error('MISO frame byte {} invalid. Expected: \'{}\'. Received: \'{}\''.format(0, '7E', miso_frame[0]))
+        if not miso_frame[1] == '00':  # address
+            valid = False
+            my_logger.error('MISO frame byte {} invalid. Expected: \'{}\'. Received: \'{}\''.format(1, '00', miso_frame[1]))
+        if not miso_frame[2] == self.last_cmd:  # command
+            valid = False
+            my_logger.error('MISO frame byte {} invalid. Expected: \'{}\'. Received: \'{}\''.format(2, self.last_cmd, miso_frame[2]))
+        if not miso_frame[3] in self.valid_states:  # state
+            valid = False
+            my_logger.error('MISO frame byte {} invalid. Expected one of: \'{}\'. Received: \'{}\''.format(3, self.valid_states, miso_frame[3]))
+        if not int(miso_frame[4], 16) == len(miso_frame[5:-2]):  # length
+            valid = False
+            my_logger.error('MISO frame byte {} invalid. Expected: \'{}\'. Received: \'{}\''.format(4, len(miso_frame[5:-2]), miso_frame[4]))
+        miso_frame_unstuffed = 
+        miso_frame_int = [int(byte, 16) for byte in miso_frame]
+        if not miso_frame[-2] == len(miso_frame[5:-2]):  # checksum
 
 
 class Commands:
     def __init__(self):
-        self.start_measurement = bytes.fromhex('00')
-        self.stop_measurement = bytes.fromhex('01')
-        self.read_measured_values = bytes.fromhex('03')
-        self.read_auto_cleaning_interval = bytes.fromhex('80')
-        self.write_auto_cleaning_interval = bytes.fromhex('80')
-        self.start_fan_cleaning = bytes.fromhex('56')
-        self.device_information = bytes.fromhex('D0')
-        self.device_reset = bytes.fromhex('D3')
+        self.start_measurement = '00'
+        self.stop_measurement = '01'
+        self.read_measured_values = '03'
+        self.read_auto_cleaning_interval = '80'
+        self.write_auto_cleaning_interval = '80'
+        self.start_fan_cleaning = '56'
+        self.device_information = 'D0'
+        self.device_reset = 'D3'
 
 
 class SensirionSPS30:
@@ -53,7 +79,7 @@ class SensirionSPS30:
         self.cmd = Commands()
 
     def start_measurement(self):
-        self.shdlc.send_command(self.cmd.start_measurement, '')
+        self.shdlc.send_command(self.cmd.start_measurement, '01 03')
         rsp = self.shdlc.get_response()
 
     def stop_measurement(self):
@@ -97,6 +123,7 @@ def build_mosi_frame(command, data=''):
     frame.append(command)  # command
     frame.append('{:02x}'.format(len(data.split())))  # length
     frame.append(''.join(data.split())) # TX data
+    # TODO: simplify the checksum calculation
     check = calculate_checksum([int(frame[1], 16), int(frame[2], 16),
                                 int(frame[3], 16)] + [int(byte, 16)
                                                       for byte in data.split()])
@@ -175,8 +202,8 @@ if __name__ == '__main__':
     # set up logging, rotating log file, max. file size 100 MBytes
     my_logger = logging.getLogger('MyLogger')
     my_logger.setLevel(logging.DEBUG)
-    formatter = logging.Formatter('%(asctime)s - %(message)s')
-    handler = logging.handlers.RotatingFileHandler(cfg['LogFile'],
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(funcName)s - %(message)s')
+    handler = logging.handlers.RotatingFileHandler('airmonitor.log',
                                                    maxBytes=104857600,
                                                    backupCount=1)
     handler.setFormatter(formatter)
