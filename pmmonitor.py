@@ -43,19 +43,24 @@ class SHDLC:
         valid = True
         if not miso_frame[0] == '7E':  # start
             valid = False
-            my_logger.error('MISO frame byte {} invalid. Expected: \'{}\'. Received: \'{}\''.format(0, '7E', miso_frame[0]))
+            my_logger.error('MISO frame byte {} invalid. '
+                            'Expected: \'{}\'. Received: \'{}\''.format(0, '7E', miso_frame[0]))
         if not miso_frame[1] == '00':  # address
             valid = False
-            my_logger.error('MISO frame byte {} invalid. Expected: \'{}\'. Received: \'{}\''.format(1, '00', miso_frame[1]))
+            my_logger.error('MISO frame byte {} invalid. '
+                            'Expected: \'{}\'. Received: \'{}\''.format(1, '00', miso_frame[1]))
         if not miso_frame[2] == self.last_cmd:  # command
             valid = False
-            my_logger.error('MISO frame byte {} invalid. Expected: \'{}\'. Received: \'{}\''.format(2, self.last_cmd, miso_frame[2]))
+            my_logger.error('MISO frame byte {} invalid. '
+                            'Expected: \'{}\'. Received: \'{}\''.format(2, self.last_cmd, miso_frame[2]))
         if not miso_frame[3] in self.valid_states:  # state
             valid = False
-            my_logger.error('MISO frame byte {} invalid. Expected one of: \'{}\'. Received: \'{}\''.format(3, self.valid_states, miso_frame[3]))
+            my_logger.error('MISO frame byte {} invalid. '
+                            'Expected one of: \'{}\'. Received: \'{}\''.format(3, self.valid_states, miso_frame[3]))
         if not int(miso_frame[4], 16) == len(miso_frame[5:-2]):  # length
             valid = False
-            my_logger.error('MISO frame byte {} invalid. Expected: \'{}\'. Received: \'{}\''.format(4, len(miso_frame[5:-2]), miso_frame[4]))
+            my_logger.error('MISO frame byte {} invalid. '
+                            'Expected: \'{}\'. Received: \'{}\''.format(4, len(miso_frame[5:-2]), miso_frame[4]))
         miso_frame_unstuffed = 
         miso_frame_int = [int(byte, 16) for byte in miso_frame]
         if not miso_frame[-2] == len(miso_frame[5:-2]):  # checksum
