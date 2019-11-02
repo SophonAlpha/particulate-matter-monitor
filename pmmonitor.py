@@ -1,38 +1,84 @@
-import serial, time
+import time
+import serial
+import logging.handlers
+
+class SHDLC:
+    def __init__(self):
+        self.buffer_size = 64
+        self.port = self.open_serial_port()
+
+    def open_serial_port(self):
+        port = serial.Serial('/dev/serial0',
+                             baudrate=115200,
+                             parity=serial.PARITY_NONE,
+                             stopbits=serial.STOPBITS_ONE,
+                             bytesize=serial.EIGHTBITS,
+                             timeout=1.5)
+        if port.isOpen():
+            port.close()
+        port.open()
+        return port
+
+    def close_serial_port(self):
+        self.port.close()
+
+    def send_command(self, cmd, data):
+        mosi_frame = build_mosi_frame(cmd, data)
+        my_logger.info(miso_frame)
+        self.port.write(mosi_frame)
+        return
+
+    def get_response(self):
+        data = self.port.read(self.buffer_size)
+        miso_frame = ' '.join(['{}'.format(hex(data[pos])) for pos in range(len(data))])
+        my_logger.info(miso_frame)
+        return data
+
+
+class Commands:
+    def __init__(self):
+        self.start_measurement = bytes.fromhex('00')
+        self.stop_measurement = bytes.fromhex('01')
+        self.read_measured_values = bytes.fromhex('03')
+        self.read_auto_cleaning_interval = bytes.fromhex('80')
+        self.write_auto_cleaning_interval = bytes.fromhex('80')
+        self.start_fan_cleaning = bytes.fromhex('56')
+        self.device_information = bytes.fromhex('D0')
+        self.device_reset = bytes.fromhex('D3')
 
 
 class SensirionSPS30:
     def __init__(self):
-        pass
+        self.shdlc = SHDLC()
+        self.cmd = Commands()
 
     def start_measurement(self):
-        START_MEASUREMENT = bytes.fromhex('7E 00 00 02 01 03 F9 7E')
+        self.shdlc.send_command(self.cmd.start_measurement, '')
+        rsp = self.shdlc.get_response()
 
     def stop_measurement(self):
-        STOP_MEASUREMENT = bytes.fromhex('7E 00 01 00 FE 7E')
+        pass
 
     def read_measurement_values(self):
-        READ_MEASURED_VALUES = bytes.fromhex('7E 00 03 00 FC 7E')
+        pass
 
     def read_auto_cleaning_interval(self):
-        READ_AUTO_CLEANING_INTERVAL = bytes.fromhex('7E 00 80 01 00 7D 5E 7E')
+        pass
 
     def write_auto_cleaning_interval(self):
-        WRITE_AUTO_CLEANING_INTERVAL = bytes.fromhex(' ')
+        pass
 
     def start_fan_cleaning(self):
-        START_FAN_CLEANING = bytes.fromhex('7E 00 56 00 A9 7E')
+        pass
 
     def get_device_information(self):
-        PRODUCT_NAME = bytes.fromhex('7E 00 D0 01 01 2D 7E')
-        ARTICLE_CODE = bytes.fromhex('7E 00 D0 01 02 2C 7E')
-        SERIAL_NUMBER = bytes.fromhex('7E 00 D0 01 03 2B 7E')
+        pass
 
     def device_reset(self):
-        DEVICE_RESET = bytes.fromhex('7E 00 D3 00 2C 7E')
+        pass
 
 
-def build_MOSI_frame(command, data=''):
+def build_mosi_frame(command, data=''):
     """
     Build the MOSI frame according to specification "Datasheet SPS30
     Particulate Matter Sensor for Air Quality Monitoring and Control",
@@ -58,12 +104,19 @@ def build_MOSI_frame(command, data=''):
     frame.append(check)  # check
     frame.append('7E')  # stop
     frame = [byte.upper() for byte in frame]
-    frame = byte_stuffing(frame[1:-1])  # bytes stuffing where needed
+    frame = byte_stuffing(frame)
     frame = ''.join(frame)
     return frame
 
 
 def calculate_checksum(data):
+    """
+    Calculate frame checksum.
+
+    :param data: list of frame content bytes in int format
+    :return: checksum as int
+    """
+
     # Sum all bytes between start and stop (without start and stop bytes).
     checksum = sum(data)
     # Take the LSB of the result ...
@@ -74,31 +127,32 @@ def calculate_checksum(data):
 
 
 def byte_stuffing(frame):
-    replace = {
-        '7E': '7D 5E',
-        '7D': '7D 5D',
-        '11': '7D 31',
-        '13': '7D 33',
+    """
+    The 0x7E character is sent at the beginning and at the end of the frame to
+    signalize frame start and stop. If this byte (0x7E) occurs anywhere else in
+    the frame, it must be replaced by two other bytes (byte-stuffing).
+    This also applies to the characters 0x7D, 0x11 and 0x13.
+
+    :param frame: the frame a list of hex values in string format
+    :return: new 'byte stuffed' frame
+    """
+    stuffing = {
+        '7E': ['7D', '5E'],
+        '7D': ['7D', '5D'],
+        '11': ['7D', '31'],
+        '13': ['7D', '33'],
     }
-    frame = [replace[byte] if byte in replace.keys() else byte for byte in frame]
-    return frame
+    new_frame = []
+    new_frame.append(frame[0])  # add start frame
+    for index, byte in enumerate(frame[1:-1]):
+        if byte in stuffing.keys():
+            new_frame.extend(stuffing[byte])
+        else:
+            new_frame.append(byte)
+    new_frame.append(frame[-1])  # add end frame
+    return new_frame
 
 
-# port = serial.Serial('/dev/serial0',
-#                      baudrate=115200,
-#                      parity=serial.PARITY_NONE,
-#                      stopbits=serial.STOPBITS_ONE,
-#                      bytesize=serial.EIGHTBITS,
-#                      timeout=1.5)
-#
-# if port.isOpen():
-#     print('closing port ...')
-#     port.close()
-# print('open serial port ...')
-# port.open()
-# time.sleep(1)
-# print()
-#
 # print('start particle measurement ...')
 # port.write(START_MEASUREMENT)
 # data = port.read(16)
@@ -116,9 +170,18 @@ def byte_stuffing(frame):
 # data = port.read(50)
 # print(' '.join(['{}'.format(hex(data[pos])) for pos in range(len(data))]))
 # print()
-#
-# port.close()
 
 if __name__ == '__main__':
-    MOSI_frame = build_MOSI_frame('80', data='00')
-    print(MOSI_frame)
+    # set up logging, rotating log file, max. file size 100 MBytes
+    my_logger = logging.getLogger('MyLogger')
+    my_logger.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(asctime)s - %(message)s')
+    handler = logging.handlers.RotatingFileHandler(cfg['LogFile'],
+                                                   maxBytes=104857600,
+                                                   backupCount=1)
+    handler.setFormatter(formatter)
+    my_logger.addHandler(handler)
+    # start measurement
+    pm_sensor = SensirionSPS30()
+    resp = pm_sensor.start_measurement()
+    print(resp)
