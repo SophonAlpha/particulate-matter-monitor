@@ -43,27 +43,36 @@ class SHDLC:
         valid = True
         if not miso_frame[0] == '7E':  # start
             valid = False
-            my_logger.error('MISO frame byte {} invalid. '
-                            'Expected: \'{}\'. Received: \'{}\''.format(0, '7E', miso_frame[0]))
+            err_msg = 'MISO frame byte {} invalid. ' \
+                      'Expected: \'{}\'. Received: \'{}\''.format(0, '7E', miso_frame[0])
+            my_logger.error(err_msg)
         if not miso_frame[1] == '00':  # address
             valid = False
-            my_logger.error('MISO frame byte {} invalid. '
-                            'Expected: \'{}\'. Received: \'{}\''.format(1, '00', miso_frame[1]))
+            err_msg = 'MISO frame byte {} invalid. ' \
+                      'Expected: \'{}\'. Received: \'{}\''.format(1, '00', miso_frame[1])
+            my_logger.error(err_msg)
         if not miso_frame[2] == self.last_cmd:  # command
             valid = False
-            my_logger.error('MISO frame byte {} invalid. '
-                            'Expected: \'{}\'. Received: \'{}\''.format(2, self.last_cmd, miso_frame[2]))
+            err_msg = 'MISO frame byte {} invalid. ' \
+                      'Expected: \'{}\'. Received: \'{}\''.format(2, self.last_cmd, miso_frame[2])
+            my_logger.error(err_msg)
         if not miso_frame[3] in self.valid_states:  # state
             valid = False
-            my_logger.error('MISO frame byte {} invalid. '
-                            'Expected one of: \'{}\'. Received: \'{}\''.format(3, self.valid_states, miso_frame[3]))
+            err_msg = 'MISO frame byte {} invalid. ' \
+                      'Expected one of: \'{}\'. Received: \'{}\''.format(3, self.valid_states, miso_frame[3])
+            my_logger.error(err_msg)
         if not int(miso_frame[4], 16) == len(miso_frame[5:-2]):  # length
             valid = False
-            my_logger.error('MISO frame byte {} invalid. '
-                            'Expected: \'{}\'. Received: \'{}\''.format(4, len(miso_frame[5:-2]), miso_frame[4]))
-        miso_frame_unstuffed = 
+            err_msg = 'MISO frame byte {} invalid. ' \
+                      'Expected: \'{}\'. Received: \'{}\''.format(4, len(miso_frame[5:-2]), miso_frame[4])
+            my_logger.error(err_msg)
+        miso_frame_unstuffed = None
         miso_frame_int = [int(byte, 16) for byte in miso_frame]
         if not miso_frame[-2] == len(miso_frame[5:-2]):  # checksum
+            valid = False
+            err_msg = 'MISO frame checksum byte {} invalid. ' \
+                      'Expected: \'{}\'. Received: \'{}\''.format(4, len(miso_frame[5:-2]), miso_frame[4])
+            
 
 
 class Commands:
@@ -160,6 +169,8 @@ def calculate_checksum(data):
 
 def byte_stuffing(frame):
     """
+    Do byte-stuffing.
+
     The 0x7E character is sent at the beginning and at the end of the frame to
     signalize frame start and stop. If this byte (0x7E) occurs anywhere else in
     the frame, it must be replaced by two other bytes (byte-stuffing).
@@ -175,6 +186,44 @@ def byte_stuffing(frame):
         '13': ['7D', '33'],
     }
     new_frame = []
+    new_frame.append(frame[0])  # add start frame
+    for index, byte in enumerate(frame[1:-1]):
+        if byte in stuffing.keys():
+            new_frame.extend(stuffing[byte])
+        else:
+            new_frame.append(byte)
+    new_frame.append(frame[-1])  # add end frame
+    return new_frame
+
+def byte_unstuffing(frame):
+    """
+    Reverse byte-stuffing in received frames.
+
+    The 0x7E character is sent at the beginning and at the end of the frame to
+    signalize frame start and stop. If this byte (0x7E) occurs anywhere else in
+    the frame, it must be replaced by two other bytes (byte-stuffing).
+    This also applies to the characters 0x7D, 0x11 and 0x13.
+
+    :param frame: the frame a list of hex values in string format
+    :return: new 'byte stuffed' frame
+    """
+    unstuffing = {
+        ('7D', '5E'): '7E',
+        ('7D', '5D'): '7D',
+        ('7D', '31'): '11',
+        ('7D', '33'): '13',
+    }
+    new_frame = frame[:]
+    for pos in range(len(frame)):
+        for seq in unstuffing.keys():
+            if frame[pos:pos + len(seq)] == list(unstuffing[seq]):
+                frame[pos:pos + len(seq)] = list(unstuffing[seq])
+    
+
+
+
+    [(i, i+len(b)) for i in range(len(a)) if a[i:i+len(b)] == b]
+    
     new_frame.append(frame[0])  # add start frame
     for index, byte in enumerate(frame[1:-1]):
         if byte in stuffing.keys():
