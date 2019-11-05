@@ -195,6 +195,7 @@ def byte_stuffing(frame):
     new_frame.append(frame[-1])  # add end frame
     return new_frame
 
+
 def byte_unstuffing(frame):
     """
     Reverse byte-stuffing in received frames.
@@ -213,25 +214,14 @@ def byte_unstuffing(frame):
         ('7D', '31'): '11',
         ('7D', '33'): '13',
     }
-    new_frame = frame[:]
-    for pos in range(len(frame)):
-        for seq in unstuffing.keys():
-            if frame[pos:pos + len(seq)] == list(unstuffing[seq]):
-                frame[pos:pos + len(seq)] = list(unstuffing[seq])
-    
-
-
-
-    [(i, i+len(b)) for i in range(len(a)) if a[i:i+len(b)] == b]
-    
-    new_frame.append(frame[0])  # add start frame
-    for index, byte in enumerate(frame[1:-1]):
-        if byte in stuffing.keys():
-            new_frame.extend(stuffing[byte])
-        else:
-            new_frame.append(byte)
-    new_frame.append(frame[-1])  # add end frame
-    return new_frame
+    ptr = 0
+    key_len = len(list(unstuffing.keys())[0])
+    while ptr < len(frame):
+        seq = tuple(frame[ptr:ptr + key_len])
+        if seq in unstuffing.keys():
+            frame[ptr:ptr + key_len] = [unstuffing[seq]]
+        ptr += 1
+    return frame
 
 
 # print('start particle measurement ...')
@@ -253,6 +243,8 @@ def byte_unstuffing(frame):
 # print()
 
 if __name__ == '__main__':
+    frame = ['7E', '00', '80', '01', '00', '7D', '5E', '7E']
+    frame = byte_unstuffing(frame)
     # set up logging, rotating log file, max. file size 100 MBytes
     my_logger = logging.getLogger('MyLogger')
     my_logger.setLevel(logging.DEBUG)

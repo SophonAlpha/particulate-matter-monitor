@@ -7,7 +7,7 @@ import pytest
 
 import pmmonitor
 
-TESTS = [
+TESTS_BUILD_MOSI_FRAME = [
     ('00', '01 03', '7E0000020103F97E'),  # Start Measurement (CMD: 0x00)
     ('01', '', '7E000100FE7E'),  # Stop Measurement (CMD: 0x01)
     ('03', '', '7E000300FC7E'),  # Read Measured Values (CMD: 0x03)
@@ -20,8 +20,21 @@ TESTS = [
     ('D3', '', '7E00D3002C7E'),  # Device Reset (CMD: 0xD3)
 ]
 
-@pytest.mark.parametrize('command, data, solution', TESTS)
-def test_build_MOSI_frame(command, data, solution):
+TESTS_UNSTUFFING = [
+    (['7E', '00', '80', '01', '00', '7D', '5E', '7E'],
+     ['7E', '00', '80', '01', '00', '7E', '7E']),
+]
+
+
+@pytest.mark.parametrize('command, data, solution', TESTS_BUILD_MOSI_FRAME)
+def test_build_mosi_frame(command, data, solution):
     """ tests """
     frame = pmmonitor.build_mosi_frame(command, data)
     assert frame == solution
+
+
+@pytest.mark.parametrize('frame, unstuffed_frame', TESTS_UNSTUFFING)
+def test_frame_unstuffing(frame, unstuffed_frame):
+    """ tests """
+    frame = pmmonitor.byte_unstuffing(frame)
+    assert frame == unstuffed_frame
