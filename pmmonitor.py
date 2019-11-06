@@ -3,12 +3,25 @@ import serial
 import logging.handlers
 
 
+def set_up_logging():
+    # set up logging, rotating log file, max. file size 100 MBytes
+    my_logger = logging.getLogger('MyLogger')
+    my_logger.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(funcName)s - %(message)s')
+    handler = logging.handlers.RotatingFileHandler('airmonitor.log',
+                                                   maxBytes=104857600,
+                                                   backupCount=1)
+    handler.setFormatter(formatter)
+    my_logger.addHandler(handler)
+    return my_logger
+
+
 class SHDLC:
     def __init__(self):
         self.valid_states = ['00', '01', '02', '03', '04', '28', '43']
         self.last_cmd = None
         self.buffer_size = 64
-        self.port = self.open_serial_port()
+        # self.port = self.open_serial_port()
 
     def open_serial_port(self):
         port = serial.Serial('/dev/serial0',
@@ -41,6 +54,8 @@ class SHDLC:
     
     def validate_miso_frame(self, miso_frame):
         valid = True
+        err_msg = None
+        miso_frame = byte_unstuffing(miso_frame)
         if not miso_frame[0] == '7E':  # start
             valid = False
             err_msg = 'MISO frame byte {} invalid. ' \
@@ -66,13 +81,12 @@ class SHDLC:
             err_msg = 'MISO frame byte {} invalid. ' \
                       'Expected: \'{}\'. Received: \'{}\''.format(4, len(miso_frame[5:-2]), miso_frame[4])
             my_logger.error(err_msg)
-        miso_frame_unstuffed = None
         miso_frame_int = [int(byte, 16) for byte in miso_frame]
-        if not miso_frame[-2] == len(miso_frame[5:-2]):  # checksum
+        if not miso_frame_int[-2] == calculate_checksum(miso_frame_int[1:-2]):  # checksum
             valid = False
             err_msg = 'MISO frame checksum byte {} invalid. ' \
                       'Expected: \'{}\'. Received: \'{}\''.format(4, len(miso_frame[5:-2]), miso_frame[4])
-            
+        return valid, err_msg
 
 
 class Commands:
@@ -224,37 +238,15 @@ def byte_unstuffing(frame):
     return frame
 
 
-# print('start particle measurement ...')
-# port.write(START_MEASUREMENT)
-# data = port.read(16)
-# print(' '.join(['{}'.format(hex(data[pos])) for pos in range(len(data))]))
-# print()
-#
-# print('read measured values ...')
-# port.write(READ_MEASURED_VALUES)
-# data = port.read(50)
-# print(' '.join(['{}'.format(hex(data[pos])) for pos in range(len(data))]))
-# print()
-#
-# print('reset device ...')
-# port.write(DEVICE_RESET)
-# data = port.read(50)
-# print(' '.join(['{}'.format(hex(data[pos])) for pos in range(len(data))]))
-# print()
+my_logger = set_up_logging()
+
 
 if __name__ == '__main__':
-    frame = ['7E', '00', '80', '01', '00', '7D', '5E', '7E']
-    frame = byte_unstuffing(frame)
-    # set up logging, rotating log file, max. file size 100 MBytes
-    my_logger = logging.getLogger('MyLogger')
-    my_logger.setLevel(logging.DEBUG)
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(funcName)s - %(message)s')
-    handler = logging.handlers.RotatingFileHandler('airmonitor.log',
-                                                   maxBytes=104857600,
-                                                   backupCount=1)
-    handler.setFormatter(formatter)
-    my_logger.addHandler(handler)
     # start measurement
-    pm_sensor = SensirionSPS30()
-    resp = pm_sensor.start_measurement()
-    print(resp)
+    shdlc = SHDLC()
+    resp_frame = ['7E', '00', '80', '01', '00', '7D', '5E', '7E']
+    shdlc.last_cmd = '80'
+    print(shdlc.validate_miso_frame(resp_frame))
+    # pm_sensor = SensirionSPS30()
+    # resp = pm_sensor.start_measurement()
+    # print(resp)

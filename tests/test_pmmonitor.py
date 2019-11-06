@@ -23,8 +23,21 @@ TESTS_BUILD_MOSI_FRAME = [
 TESTS_UNSTUFFING = [
     (['7E', '00', '80', '01', '00', '7D', '5E', '7E'],
      ['7E', '00', '80', '01', '00', '7E', '7E']),
+    (['7E', '7D', '5D', '80', '01', '00', '7E', '7E'],
+     ['7E', '7D', '80', '01', '00', '7E', '7E']),
+    (['7D', '31', '00', '80', '01', '00', '7E', '7E'],
+     ['11', '00', '80', '01', '00', '7E', '7E']),
+    (['7E', '00', '80', '01', '00', '7E', '7D', '33'],
+     ['7E', '00', '80', '01', '00', '7E', '13']),
+    (['7D', '5E', '7D', '5D', '7D', '31', '7D', '33', '00', '7E', '7E'],
+     ['7E', '7D', '11', '13', '00', '7E', '7E']),
 ]
 
+TESTS_VALIDATE_MISO_FRAME = [
+    (['7E', '00', '80', '01', '00', '7D', '5E', '7E'], '80', True, None),
+    (['7F', '00', '80', '01', '00', '7D', '5E', '7E'], '80', False,
+     'MISO frame byte 0 invalid. Expected: \'7E\'. Received: \'7F\''),
+]
 
 @pytest.mark.parametrize('command, data, solution', TESTS_BUILD_MOSI_FRAME)
 def test_build_mosi_frame(command, data, solution):
@@ -38,3 +51,14 @@ def test_frame_unstuffing(frame, unstuffed_frame):
     """ tests """
     frame = pmmonitor.byte_unstuffing(frame)
     assert frame == unstuffed_frame
+
+
+@pytest.mark.parametrize('resp_frame, last_cmd, valid, err_msg',
+                         TESTS_VALIDATE_MISO_FRAME)
+def test_frame_unstuffing(resp_frame, last_cmd, valid, err_msg):
+    """ tests """
+    shdlc = pmmonitor.SHDLC()
+    shdlc.last_cmd = last_cmd
+    resp_valid, resp_err_msg = shdlc.validate_miso_frame(resp_frame)
+    assert resp_valid == valid
+    assert resp_err_msg == err_msg
