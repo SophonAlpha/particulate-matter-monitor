@@ -56,36 +56,45 @@ class SHDLC:
         valid = True
         err_msg = None
         miso_frame = byte_unstuffing(miso_frame)
+        miso_frame_int = [int(byte, 16) for byte in miso_frame]
+        chk = calculate_checksum(miso_frame_int[1:-2])
         if not miso_frame[0] == '7E':  # start
             valid = False
-            err_msg = 'MISO frame byte {} invalid. ' \
-                      'Expected: \'{}\'. Received: \'{}\''.format(0, '7E', miso_frame[0])
+            err_msg = 'MISO frame start byte {} invalid. Expected: \'{}\'. ' \
+                      'Received: \'{}\''.format(0, '7E', miso_frame[0])
             my_logger.error(err_msg)
-        if not miso_frame[1] == '00':  # address
+        elif not miso_frame[1] == '00':  # address
             valid = False
-            err_msg = 'MISO frame byte {} invalid. ' \
-                      'Expected: \'{}\'. Received: \'{}\''.format(1, '00', miso_frame[1])
+            err_msg = 'MISO frame address byte {} invalid. Expected: \'{}\'. ' \
+                      'Received: \'{}\''.format(1, '00', miso_frame[1])
             my_logger.error(err_msg)
-        if not miso_frame[2] == self.last_cmd:  # command
+        elif not miso_frame[2] == self.last_cmd:  # command
             valid = False
-            err_msg = 'MISO frame byte {} invalid. ' \
-                      'Expected: \'{}\'. Received: \'{}\''.format(2, self.last_cmd, miso_frame[2])
+            err_msg = 'MISO frame command byte {} invalid. Expected: \'{}\'. ' \
+                      'Received: \'{}\''.format(2, self.last_cmd, miso_frame[2])
             my_logger.error(err_msg)
-        if not miso_frame[3] in self.valid_states:  # state
+        elif not miso_frame[3] in self.valid_states:  # state
             valid = False
-            err_msg = 'MISO frame byte {} invalid. ' \
-                      'Expected one of: \'{}\'. Received: \'{}\''.format(3, self.valid_states, miso_frame[3])
+            txt = ', '.join(self.valid_states)
+            err_msg = 'MISO frame state byte {} invalid. Expected one of: \'[{}]\'. ' \
+                      'Received: \'{}\''.format(3, txt, miso_frame[3])
             my_logger.error(err_msg)
-        if not int(miso_frame[4], 16) == len(miso_frame[5:-2]):  # length
+        elif not int(miso_frame[4], 16) == len(miso_frame[5:-2]):  # length
             valid = False
-            err_msg = 'MISO frame byte {} invalid. ' \
-                      'Expected: \'{}\'. Received: \'{}\''.format(4, len(miso_frame[5:-2]), miso_frame[4])
+            err_msg = 'MISO frame length byte {} invalid. Expected: \'{}\'. ' \
+                      'Received: \'{}\''.format(4, len(miso_frame[5:-2]), miso_frame[4])
             my_logger.error(err_msg)
-        miso_frame_int = [int(byte, 16) for byte in miso_frame]
-        if not miso_frame_int[-2] == calculate_checksum(miso_frame_int[1:-2]):  # checksum
+        elif not miso_frame_int[-2] == chk:  # checksum
             valid = False
-            err_msg = 'MISO frame checksum byte {} invalid. ' \
-                      'Expected: \'{}\'. Received: \'{}\''.format(4, len(miso_frame[5:-2]), miso_frame[4])
+            err_msg = 'MISO frame checksum byte {} invalid. Expected: \'{}\'. ' \
+                      'Received: \'{}\''.format(len(miso_frame) - 2,
+                                                format(chk, 'x').upper(),
+                                                miso_frame[5])
+        elif not miso_frame[-1] == '7E':  # end
+            valid = False
+            err_msg = 'MISO frame end byte {} invalid. Expected: \'{}\'. ' \
+                      'Received: \'{}\''.format(len(miso_frame) - 1, '7E', miso_frame[0])
+            my_logger.error(err_msg)
         return valid, err_msg
 
 

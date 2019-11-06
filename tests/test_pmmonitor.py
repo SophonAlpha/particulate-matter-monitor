@@ -34,9 +34,17 @@ TESTS_UNSTUFFING = [
 ]
 
 TESTS_VALIDATE_MISO_FRAME = [
-    (['7E', '00', '80', '01', '00', '7D', '5E', '7E'], '80', True, None),
+    (['7E', '00', '80', '01', '00', '7D', '5E', '7E'], '80',
+     True, None),  # correct frame
     (['7F', '00', '80', '01', '00', '7D', '5E', '7E'], '80', False,
-     'MISO frame byte 0 invalid. Expected: \'7E\'. Received: \'7F\''),
+     'MISO frame start byte 0 invalid. Expected: \'7E\'. Received: \'7F\''),  # wrong start byte
+    (['7E', '01', '80', '01', '00', '7D', '5E', '7E'], '80', False,
+     'MISO frame address byte 1 invalid. Expected: \'00\'. Received: \'01\''),  # wrong address byte
+    (['7E', '00', '66', '01', '00', '7D', '5E', '7E'], '80', False,
+     'MISO frame command byte 2 invalid. Expected: \'80\'. Received: \'66\''),  # wrong command byte
+    (['7E', '00', '80', '44', '00', '7D', '5E', '7E'], '80', False,
+     'MISO frame state byte 3 invalid. Expected one of: \'[00, 01, 02, 03, 04, 28, 43]\'. Received: \'44\''),  # wrong state byte
+
 ]
 
 @pytest.mark.parametrize('command, data, solution', TESTS_BUILD_MOSI_FRAME)
