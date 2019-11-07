@@ -21,7 +21,7 @@ class SHDLC:
         self.valid_states = ['00', '01', '02', '03', '04', '28', '43']
         self.last_cmd = None
         self.buffer_size = 64
-        # self.port = self.open_serial_port()
+        self.port = self.open_serial_port()
 
     def open_serial_port(self):
         port = serial.Serial('/dev/serial0',
@@ -49,7 +49,10 @@ class SHDLC:
         data = self.port.read(self.buffer_size)
         miso_frame = ['{}'.format(hex(data[pos])) for pos in range(len(data))]
         my_logger.info('received MISO frame: {}'.format(' '.join(miso_frame)))
-        self.validate_miso_frame(miso_frame)
+        valid, err_msg = self.validate_miso_frame(miso_frame)
+        if valid:
+            # TODO: extract data from MISO frame
+            pass
         return data
     
     def validate_miso_frame(self, miso_frame):
@@ -82,18 +85,19 @@ class SHDLC:
         elif not int(miso_frame[4], 16) == len(miso_frame[5:-2]):  # length
             valid = False
             err_msg = 'MISO frame length byte {} invalid. Expected: \'{}\'. ' \
-                      'Received: \'{}\''.format(4, len(miso_frame[5:-2]), miso_frame[4])
+                      'Received: \'{}\''.format(4, len(miso_frame[5:-2]),
+                                                miso_frame_int[4])
             my_logger.error(err_msg)
         elif not miso_frame_int[-2] == chk:  # checksum
             valid = False
             err_msg = 'MISO frame checksum byte {} invalid. Expected: \'{}\'. ' \
                       'Received: \'{}\''.format(len(miso_frame) - 2,
                                                 format(chk, 'x').upper(),
-                                                miso_frame[5])
+                                                format(miso_frame_int[-2], 'x').upper())
         elif not miso_frame[-1] == '7E':  # end
             valid = False
             err_msg = 'MISO frame end byte {} invalid. Expected: \'{}\'. ' \
-                      'Received: \'{}\''.format(len(miso_frame) - 1, '7E', miso_frame[0])
+                      'Received: \'{}\''.format(len(miso_frame) - 1, '7E', miso_frame[-1])
             my_logger.error(err_msg)
         return valid, err_msg
 
@@ -116,7 +120,8 @@ class SensirionSPS30:
         self.cmd = Commands()
 
     def start_measurement(self):
-        self.shdlc.send_command(self.cmd.start_measurement, '01 03')
+        data = '01 03'  # as per Sensirion SPS30 datasheet
+        self.shdlc.send_command(self.cmd.start_measurement, data)
         rsp = self.shdlc.get_response()
 
     def stop_measurement(self):

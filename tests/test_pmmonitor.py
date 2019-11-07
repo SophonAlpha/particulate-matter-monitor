@@ -44,7 +44,12 @@ TESTS_VALIDATE_MISO_FRAME = [
      'MISO frame command byte 2 invalid. Expected: \'80\'. Received: \'66\''),  # wrong command byte
     (['7E', '00', '80', '44', '00', '7D', '5E', '7E'], '80', False,
      'MISO frame state byte 3 invalid. Expected one of: \'[00, 01, 02, 03, 04, 28, 43]\'. Received: \'44\''),  # wrong state byte
-
+    (['7E', '00', '80', '01', '01', '7D', '5E', '7E'], '80', False,
+     'MISO frame length byte 4 invalid. Expected: \'0\'. Received: \'1\''),  # wrong state length
+    (['7E', '00', '80', '01', '00', '7D', '5D', '7E'], '80', False,
+     'MISO frame checksum byte 5 invalid. Expected: \'7E\'. Received: \'7D\''),  # wrong checksum
+    (['7E', '00', '80', '01', '00', '7D', '5E', '7F'], '80', False,
+     'MISO frame end byte 6 invalid. Expected: \'7E\'. Received: \'7F\''),  # wrong end byte
 ]
 
 @pytest.mark.parametrize('command, data, solution', TESTS_BUILD_MOSI_FRAME)
