@@ -1,0 +1,19 @@
+2019-11-07 23:49:17,650 - INFO - send_command - sending MOSI frame: 7E0000020103F97E
+2019-11-07 23:49:19,202 - INFO - get_response - received MISO frame: 0x7e 0x0 0x0 0x0 0x0 0xff 0x7e
+2019-11-07 23:49:19,391 - ERROR - validate_miso_frame - MISO frame start byte 0 invalid. Expected: '7E'. Received: '0x7e'
+2019-11-07 23:56:59,532 - INFO - send_command - sending MOSI frame: 7E0000020103F97E
+2019-11-07 23:57:01,084 - INFO - get_response - received MISO frame: 0x7e 0x0 0x0 0x43 0x0 0xbc 0x7e
+2019-11-07 23:57:01,277 - ERROR - validate_miso_frame - MISO frame start byte 0 invalid. Expected: '7E'. Received: '0x7e'
+2019-11-08 00:13:37,196 - INFO - send_command - sending MOSI frame: ['0X7E', '0X0', '0X0', '0X2', '0X1', '0X3', '0XF9', '0X7E']
+2019-11-08 00:27:48,036 - INFO - send_command - sending MOSI frame: ['0X7E', '0X0', '0X0', '0X2', '0X1', '0X3', '0XF9', '0X7E']
+2019-11-08 00:30:53,282 - INFO - send_command - sending MOSI frame: ['0X7E', '0X0', '0X0', '0X2', '0X1', '0X3', '0XF9', '0X7E']
+2019-11-08 20:47:16,348 - INFO - send_command - sending MOSI frame: ['0X7E', '0X0', '0X0', '0X2', '0X1', '0X3', '0XF9', '0X7E']
+2019-11-08 20:48:28,345 - INFO - send_command - sending MOSI frame: ['0X7E', '0X0', '0X0', '0X2', '0X1', '0X3', '0XF9', '0X7E']
+2019-11-08 21:11:35,879 - INFO - send_command - sending MOSI frame: ['0X7E', '0X0', '0X0', '0X2', '0X1', '0X3', '0XF9', '0X7E']
+2019-11-08 21:12:51,155 - INFO - send_command - sending MOSI frame: ['0X7E', '0X0', '0X0', '0X2', '0X1', '0X3', '0XF9', '0X7E']
+2019-11-08 21:16:13,306 - INFO - send_command - sending MOSI frame: ['0X7E', '0X0', '0X0', '0X2', '0X1', '0X3', '0XF9', '0X7E']
+2019-11-08 21:16:45,118 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x43', '0x0', '0xbc', '0x7e']
+2019-11-08 21:23:48,768 - INFO - send_command - sending MOSI frame: ['0X7E', '0X0', '0X0', '0X2', '0X1', '0X3', '0XF9', '0X7E']
+2019-11-08 21:23:56,659 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x43', '0x0', '0xbc', '0x7e']
+2019-11-08 21:24:15,215 - INFO - send_command - sending MOSI frame: ['0X7E', '0X0', '0X0', '0X2', '0X1', '0X3', '0XF9', '0X7E']
+2019-11-08 21:24:22,346 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x43', '0x0', '0xbc', '0x7e']
