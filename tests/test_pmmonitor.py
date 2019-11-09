@@ -44,8 +44,6 @@ TESTS_UNSTUFFING = [
 ]
 
 TESTS_VALIDATE_MISO_FRAME = [
-    # (['7E', '00', '80', '01', '00', '7D', '5E', '7E'], '80',
-    #  None),  # correct frame
     (['0x7f', '0x0', '0x80', '0x1', '0x0', '0x7d', '0x5e', '0x7e'], '0x80',
      'MISO frame start byte 0 invalid. Expected: \'0x7e\'. Received: \'0x7f\''),  # wrong start byte
     (['0x7e', '0x1', '0x80', '0x1', '0x0', '0x7d', '0x5e', '0x7e'], '0x80',
@@ -61,6 +59,22 @@ TESTS_VALIDATE_MISO_FRAME = [
     (['0x7e', '0x0', '0x80', '0x1', '0x0', '0x7d', '0x5e', '0x7f'], '0x80',
      'MISO frame stop byte 6 invalid. Expected: \'0x7e\'. Received: \'0x7f\''),  # wrong end byte
 ]
+
+TESTS_VALIDATE_MISO_STATE = [
+    (['0x7e', '0x0', '0x80', '0x1', '0x0', '0x7d', '0x5e', '0x7e'],
+     'Wrong data length for this command(too much or little data)', 1),
+    (['0x7e', '0x0', '0x80', '0x2', '0x0', '0x7d', '0x5e', '0x7e'],
+     'Unknown command', 2),
+    (['0x7e', '0x0', '0x80', '0x3', '0x0', '0x7d', '0x5e', '0x7e'],
+     'No access right for command', 3),
+    (['0x7e', '0x0', '0x80', '0x4', '0x0', '0x7d', '0x5e', '0x7e'],
+     'Illegal command parameter or parameter out of allowed range', 4),
+    (['0x7e', '0x0', '0x80', '0x28', '0x0', '0x7d', '0x5e', '0x7e'],
+     'Internal function argument out of range', 40),
+    (['0x7e', '0x0', '0x80', '0x43', '0x0', '0x7d', '0x5e', '0x7e'],
+     'Command not allowed in current state', 67),
+]
+
 
 @pytest.mark.parametrize('command, data, solution', TESTS_BUILD_MOSI_FRAME)
 def test_build_mosi_frame(command, data, solution):
@@ -85,3 +99,13 @@ def test_validate_miso_frame(resp_frame, last_cmd, err_msg):
     with pytest.raises(pmmonitor.MISOFrameError) as excinfo:
         shdlc.validate_miso_frame(resp_frame)
     assert excinfo.value.args[0] == err_msg
+
+
+@pytest.mark.parametrize('resp_frame, err_msg, err_code',
+                         TESTS_VALIDATE_MISO_STATE)
+def test_validate_miso_state(resp_frame, err_msg, err_code):
+    """ tests """
+    with pytest.raises(pmmonitor.StateValidationError) as excinfo:
+        pmmonitor.check_state(resp_frame)
+    assert excinfo.value.args[0] == err_msg
+    assert excinfo.value.args[1] == err_code

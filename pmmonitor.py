@@ -48,7 +48,8 @@ class SHDLC:
     def send_command(self, cmd, data):
         mosi_frame = build_mosi_frame(cmd, data)
         my_logger.info('sending MOSI frame: {}'.format(mosi_frame))
-        mosi_frame = ''.join(['{:02x}'.format(int(byte, 0)) for byte in mosi_frame])
+        mosi_frame = ''.join(['{:02x}'.format(int(byte, 0))
+                              for byte in mosi_frame])
         mosi_frame = bytes.fromhex(mosi_frame)
         self.port.write(mosi_frame)
         self.last_cmd = cmd
@@ -58,10 +59,10 @@ class SHDLC:
         miso_frame = [hex(data[pos]) for pos in range(len(data))]
         my_logger.info('received MISO frame: {}'.format(miso_frame))
         self.validate_miso_frame(miso_frame)
-        self.check_state(miso_frame)
-        # TODO: extract data from MISO frame
-        return data
-    
+        check_state(miso_frame)
+        payload = miso_frame[miso_frame[5:-2]]
+        return payload
+
     def validate_miso_frame(self, miso_frame):
         miso_frame = byte_unstuffing(miso_frame)
         miso_frame_int = [int(byte, 16) for byte in miso_frame]
@@ -103,63 +104,10 @@ class SHDLC:
         elif not miso_frame[-1] == '0x7e':  # end
             valid = False
             err_msg = 'MISO frame stop byte {} invalid. Expected: \'{}\'. ' \
-                      'Received: \'{}\''.format(len(miso_frame) - 1, '0x7e', miso_frame[-1])
+                      'Received: \'{}\''.format(len(miso_frame) - 1, '0x7e',
+                                                miso_frame[-1])
             raise MISOFrameError(err_msg)
         return
-
-
-class Commands:
-    def __init__(self):
-        self.start_measurement = '0x0'
-        self.stop_measurement = '0x1'
-        self.read_measured_values = '0x3'
-        self.read_auto_cleaning_interval = '0x80'
-        self.write_auto_cleaning_interval = '0x80'
-        self.start_fan_cleaning = '0x56'
-        self.device_information = '0xd0'
-        self.device_reset = '0xd3'
-
-
-class SensirionSPS30:
-    def __init__(self):
-        self.shdlc = SHDLC()
-        self.cmd = Commands()
-
-    def start_measurement(self):
-        data = ['0x1', '0x3']  # as per Sensirion SPS30 datasheet
-        self.shdlc.send_command(self.cmd.start_measurement, data)
-        my_logger.error(err_msg)
-        rsp = self.shdlc.get_response()
-        # try:
-        #     self.shdlc.send_command(self.cmd.start_measurement, data)
-        # except SendCommandError as err:
-        #     # TODO: add error handling code
-        #     pass
-        # except SerialError as err
-        #     # TODO: add error handling code
-        #     pass
-
-
-    def stop_measurement(self):
-        pass
-
-    def read_measurement_values(self):
-        pass
-
-    def read_auto_cleaning_interval(self):
-        pass
-
-    def write_auto_cleaning_interval(self):
-        pass
-
-    def start_fan_cleaning(self):
-        pass
-
-    def get_device_information(self):
-        pass
-
-    def device_reset(self):
-        pass
 
 
 def build_mosi_frame(command, data=''):
@@ -264,6 +212,75 @@ def byte_unstuffing(frame):
             frame[ptr:ptr + key_len] = [unstuffing[seq]]
         ptr += 1
     return frame
+
+
+def check_state(miso_frame):
+    state_errors = {
+        '0x1': 'Wrong data length for this command(too much or little data)',
+        '0x2': 'Unknown command',
+        '0x3': 'No access right for command',
+        '0x4': 'Illegal command parameter or parameter out of allowed range',
+        '0x28': 'Internal function argument out of range',
+        '0x43': 'Command not allowed in current state',
+    }
+    if miso_frame[3] in state_errors.keys():
+        raise StateValidationError(state_errors[miso_frame[3]], int(miso_frame[3], 0))
+    pass
+
+
+class Commands:
+    def __init__(self):
+        self.start_measurement = '0x0'
+        self.stop_measurement = '0x1'
+        self.read_measured_values = '0x3'
+        self.read_auto_cleaning_interval = '0x80'
+        self.write_auto_cleaning_interval = '0x80'
+        self.start_fan_cleaning = '0x56'
+        self.device_information = '0xd0'
+        self.device_reset = '0xd3'
+
+
+class SensirionSPS30:
+    def __init__(self):
+        self.shdlc = SHDLC()
+        self.cmd = Commands()
+
+    def start_measurement(self):
+        data = ['0x1', '0x3']  # as per Sensirion SPS30 datasheet
+        self.shdlc.send_command(self.cmd.start_measurement, data)
+        # TODO: add exception handling for failing send command
+        my_logger.error(err_msg)
+        rsp = self.shdlc.get_response()
+        # try:
+        #     self.shdlc.send_command(self.cmd.start_measurement, data)
+        # except SendCommandError as excinfo:
+        #     # TODO: add error handling code
+        #     pass
+        # except SerialError as excinfo
+        #     # TODO: add error handling code
+        #     pass
+
+
+    def stop_measurement(self):
+        pass
+
+    def read_measurement_values(self):
+        pass
+
+    def read_auto_cleaning_interval(self):
+        pass
+
+    def write_auto_cleaning_interval(self):
+        pass
+
+    def start_fan_cleaning(self):
+        pass
+
+    def get_device_information(self):
+        pass
+
+    def device_reset(self):
+        pass
 
 
 my_logger = set_up_logging()
