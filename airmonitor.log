@@ -17,3 +17,492 @@
 2019-11-08 21:23:56,659 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x43', '0x0', '0xbc', '0x7e']
 2019-11-08 21:24:15,215 - INFO - send_command - sending MOSI frame: ['0X7E', '0X0', '0X0', '0X2', '0X1', '0X3', '0XF9', '0X7E']
 2019-11-08 21:24:22,346 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x43', '0x0', '0xbc', '0x7e']
+2019-11-09 22:37:34,914 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-09 22:37:36,420 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-09 22:38:10,602 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-09 22:38:12,105 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x43', '0x0', '0xbc', '0x7e']
+2019-11-09 22:40:50,809 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 22:40:52,311 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-09 22:42:43,414 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 22:42:44,917 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-09 22:49:08,393 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 22:49:09,897 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-09 22:51:41,230 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 22:51:42,735 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-09 22:53:29,639 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 22:53:31,143 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-09 22:54:17,430 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 22:54:18,933 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-09 22:56:43,867 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 22:56:45,371 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-09 22:57:15,808 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 22:57:17,365 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-09 23:01:00,373 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:01:01,927 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-09 23:07:59,592 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:08:01,095 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-09 23:08:18,698 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:08:20,201 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-09 23:08:51,025 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:08:52,528 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-09 23:09:19,791 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:09:21,294 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-09 23:10:02,492 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:10:03,996 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-09 23:10:30,562 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:10:32,065 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-09 23:10:51,603 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:10:53,106 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-09 23:11:11,459 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:11:12,962 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-09 23:17:50,356 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:17:51,867 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-09 23:17:51,869 - ERROR - stop_measurement - ('Command not allowed in current state', 67)
+2019-11-09 23:19:56,802 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:19:58,306 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-09 23:19:58,307 - ERROR - stop_measurement - ('Command not allowed in current state', 67)
+2019-11-09 23:19:58,309 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-09 23:19:59,812 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-09 23:21:53,089 - INFO - <module> - ---------- script started ----------
+2019-11-09 23:21:53,092 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:21:54,594 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-09 23:21:54,597 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-09 23:21:56,100 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-09 23:23:08,225 - INFO - <module> - ---------- script started ----------
+2019-11-09 23:23:08,229 - INFO - stop_measurement - sending 'stop measurement' command ...
+2019-11-09 23:23:08,230 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:23:09,733 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-09 23:23:09,735 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-09 23:23:11,238 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-09 23:25:06,253 - INFO - <module> - ---------- script started ----------
+2019-11-09 23:25:06,257 - INFO - stop_measurement - sending 'stop measurement' command ...
+2019-11-09 23:25:06,258 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:25:07,762 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-09 23:25:07,764 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-09 23:25:09,267 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-09 23:25:26,124 - INFO - <module> - ---------- script started ----------
+2019-11-09 23:25:26,128 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-09 23:25:27,632 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x43', '0x0', '0xbc', '0x7e']
+2019-11-09 23:25:27,633 - ERROR - start_measurement - ('Command not allowed in current state', 67)
+2019-11-09 23:26:26,483 - INFO - <module> - ---------- script started ----------
+2019-11-09 23:26:26,490 - INFO - start_measurement - sending 'start measurement' command ...
+2019-11-09 23:26:26,491 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-09 23:26:27,994 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x43', '0x0', '0xbc', '0x7e']
+2019-11-09 23:26:27,995 - ERROR - start_measurement - command failed with error: ('Command not allowed in current state', 67)
+2019-11-09 23:28:51,553 - INFO - <module> - ---------- script started ----------
+2019-11-09 23:28:51,559 - INFO - start_measurement - sending 'start measurement' command ...
+2019-11-09 23:28:51,560 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-09 23:28:53,063 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x43', '0x0', '0xbc', '0x7e']
+2019-11-09 23:28:53,065 - ERROR - start_measurement - command failed with error: ('Command not allowed in current state', 67)
+2019-11-09 23:29:21,524 - INFO - <module> - ---------- script started ----------
+2019-11-09 23:29:21,529 - INFO - stop_measurement - sending 'stop measurement' command ...
+2019-11-09 23:29:21,531 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:29:23,035 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-09 23:29:23,037 - INFO - start_measurement - sending 'start measurement' command ...
+2019-11-09 23:29:23,038 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-09 23:29:24,541 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-09 23:30:19,115 - INFO - <module> - ---------- script started ----------
+2019-11-09 23:30:19,119 - INFO - stop_measurement - sending 'stop measurement' command ...
+2019-11-09 23:30:19,121 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:30:20,625 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-09 23:30:20,627 - INFO - start_measurement - sending 'start measurement' command ...
+2019-11-09 23:30:20,628 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-09 23:30:22,132 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-09 23:31:32,424 - INFO - <module> - ---------- script started ----------
+2019-11-09 23:31:32,427 - INFO - stop_measurement - sending 'stop measurement' command ...
+2019-11-09 23:31:32,428 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:31:33,931 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-09 23:31:54,571 - INFO - <module> - ---------- script started ----------
+2019-11-09 23:31:54,575 - INFO - stop_measurement - sending 'stop measurement' command ...
+2019-11-09 23:31:54,577 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:31:56,080 - INFO - get_response - received MISO frame: []
+2019-11-09 23:37:24,477 - INFO - <module> - ---------- script started ----------
+2019-11-09 23:37:24,480 - INFO - stop_measurement - sending 'stop measurement' command ...
+2019-11-09 23:37:24,481 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:37:25,983 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-09 23:37:25,986 - ERROR - stop_measurement - command failed with error: ('Command not allowed in current state', 67)
+2019-11-09 23:37:59,706 - INFO - <module> - ---------- script started ----------
+2019-11-09 23:37:59,709 - INFO - stop_measurement - sending 'stop measurement' command ...
+2019-11-09 23:37:59,710 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:38:01,212 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-09 23:38:01,216 - ERROR - stop_measurement - command failed with error: ('Command not allowed in current state', 67)
+2019-11-09 23:38:12,125 - INFO - <module> - ---------- script started ----------
+2019-11-09 23:38:12,128 - INFO - stop_measurement - sending 'stop measurement' command ...
+2019-11-09 23:38:12,129 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:38:13,631 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-09 23:38:13,635 - ERROR - stop_measurement - command failed with error: ('Command not allowed in current state', 67)
+2019-11-09 23:39:20,698 - INFO - <module> - ---------- script started ----------
+2019-11-09 23:39:20,702 - INFO - stop_measurement - sending 'stop measurement' command ...
+2019-11-09 23:39:20,703 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:39:22,207 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-09 23:39:22,209 - ERROR - stop_measurement - command failed with error: Command not allowed in current state
+2019-11-09 23:40:42,250 - INFO - <module> - ---------- script started ----------
+2019-11-09 23:40:42,255 - INFO - stop_measurement - sending 'stop measurement' command ...
+2019-11-09 23:40:42,256 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:40:43,760 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-09 23:40:43,762 - ERROR - stop_measurement - command failed with error: Command not allowed in current state
+2019-11-09 23:40:43,763 - INFO - start_measurement - sending 'start measurement' command ...
+2019-11-09 23:40:43,764 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-09 23:40:45,267 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-09 23:41:00,365 - INFO - <module> - ---------- script started ----------
+2019-11-09 23:41:00,369 - INFO - stop_measurement - sending 'stop measurement' command ...
+2019-11-09 23:41:00,371 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:41:01,875 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-09 23:41:01,881 - INFO - start_measurement - sending 'start measurement' command ...
+2019-11-09 23:41:01,883 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-09 23:41:03,387 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-09 23:42:23,652 - INFO - <module> - ---------- script started ----------
+2019-11-09 23:42:23,658 - INFO - stop_measurement - sending 'stop measurement' command ...
+2019-11-09 23:42:23,659 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:42:25,162 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-09 23:42:25,164 - INFO - stop_measurement - command completed successful
+2019-11-09 23:42:25,165 - INFO - start_measurement - sending 'start measurement' command ...
+2019-11-09 23:42:25,166 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-09 23:42:26,669 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-09 23:42:26,671 - INFO - start_measurement - command completed successful
+2019-11-09 23:44:18,787 - INFO - <module> - ---------- script started ----------
+2019-11-09 23:44:18,791 - INFO - stop_measurement - sending 'stop measurement' command ...
+2019-11-09 23:44:18,792 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:44:20,295 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-09 23:44:20,297 - INFO - stop_measurement - command completed successful
+2019-11-09 23:44:20,299 - INFO - start_measurement - sending 'start measurement' command ...
+2019-11-09 23:44:20,301 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-09 23:44:21,804 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-09 23:44:21,806 - INFO - start_measurement - command completed successful
+2019-11-09 23:47:37,963 - INFO - <module> - ---------- script started ----------
+2019-11-09 23:47:37,966 - INFO - stop_measurement - sending 'stop measurement' command ...
+2019-11-09 23:47:37,967 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:47:39,470 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-09 23:47:39,471 - INFO - stop_measurement - command completed successful
+2019-11-09 23:55:00,504 - INFO - <module> - ---------- script started ----------
+2019-11-09 23:55:38,059 - INFO - <module> - ---------- script started ----------
+2019-11-09 23:55:38,062 - INFO - send_receive - sending command 0x1 ...
+2019-11-09 23:55:38,063 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:55:39,565 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-09 23:55:39,567 - ERROR - send_receive - command failed with error: Command not allowed in current state
+2019-11-09 23:55:39,569 - INFO - send_receive - sending command 0x1 ...
+2019-11-09 23:55:39,571 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x2', '0x1', '0x3', '0xf8', '0x7e']
+2019-11-09 23:55:41,074 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x1', '0x0', '0xfd', '0x7e']
+2019-11-09 23:55:41,076 - ERROR - send_receive - command failed with error: Wrong data length for this command(too much or little data)
+2019-11-09 23:56:39,410 - INFO - <module> - ---------- script started ----------
+2019-11-09 23:56:39,416 - INFO - send_receive - sending command 0x1 ...
+2019-11-09 23:56:39,418 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:56:40,922 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-09 23:56:40,924 - ERROR - send_receive - command failed with error: Command not allowed in current state
+2019-11-09 23:56:40,926 - INFO - send_receive - sending command 0x0 ...
+2019-11-09 23:56:40,928 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x2', '0x1', '0x3', '0xf8', '0x7e']
+2019-11-09 23:56:42,432 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x1', '0x0', '0xfd', '0x7e']
+2019-11-09 23:56:42,433 - ERROR - send_receive - command failed with error: Wrong data length for this command(too much or little data)
+2019-11-09 23:57:45,776 - INFO - <module> - ---------- script started ----------
+2019-11-09 23:57:45,780 - INFO - send_receive - sending command 0x1 ...
+2019-11-09 23:57:45,781 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:57:47,284 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-09 23:57:47,286 - ERROR - send_receive - command failed with error: Command not allowed in current state
+2019-11-09 23:57:47,288 - INFO - send_receive - sending command 0x0 ...
+2019-11-09 23:57:47,290 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-09 23:57:48,793 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-09 23:57:48,795 - INFO - send_receive - command completed successful
+2019-11-09 23:58:03,444 - INFO - <module> - ---------- script started ----------
+2019-11-09 23:58:03,449 - INFO - send_receive - sending command 0x1 ...
+2019-11-09 23:58:03,450 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:58:04,953 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-09 23:58:04,955 - INFO - send_receive - command completed successful
+2019-11-09 23:58:04,958 - INFO - send_receive - sending command 0x0 ...
+2019-11-09 23:58:04,960 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-09 23:58:06,463 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-09 23:58:06,465 - INFO - send_receive - command completed successful
+2019-11-09 23:59:16,129 - INFO - <module> - ---------- script started ----------
+2019-11-09 23:59:16,134 - INFO - stop_measurement - stop measurement ...
+2019-11-09 23:59:16,135 - INFO - send_receive - sending command 0x1 ...
+2019-11-09 23:59:16,137 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-09 23:59:17,640 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-09 23:59:17,642 - INFO - send_receive - command completed successful
+2019-11-09 23:59:17,644 - INFO - start_measurement - start measurement ...
+2019-11-09 23:59:17,645 - INFO - send_receive - sending command 0x0 ...
+2019-11-09 23:59:17,647 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-09 23:59:19,150 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-09 23:59:19,152 - INFO - send_receive - command completed successful
+2019-11-10 00:02:34,674 - INFO - <module> - ---------- script started ----------
+2019-11-10 00:02:34,680 - INFO - stop_measurement - stop measurement ...
+2019-11-10 00:02:34,681 - INFO - send_receive - sending command 0x1 ...
+2019-11-10 00:02:34,682 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-10 00:02:36,185 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-10 00:02:36,187 - INFO - send_receive - command completed successful
+2019-11-10 00:02:36,188 - INFO - start_measurement - start measurement ...
+2019-11-10 00:02:36,189 - INFO - send_receive - sending command 0x0 ...
+2019-11-10 00:02:36,190 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-10 00:02:37,693 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-10 00:02:37,695 - INFO - send_receive - command completed successful
+2019-11-10 00:02:58,032 - INFO - <module> - ---------- script started ----------
+2019-11-10 00:02:58,035 - INFO - stop_measurement - stop measurement ...
+2019-11-10 00:02:58,036 - INFO - send_receive - sending command 0x1 ...
+2019-11-10 00:02:58,037 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-10 00:02:59,539 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-10 00:02:59,541 - INFO - send_receive - command completed successful
+2019-11-10 00:02:59,542 - INFO - start_measurement - start measurement ...
+2019-11-10 00:02:59,543 - INFO - send_receive - sending command 0x0 ...
+2019-11-10 00:02:59,544 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-10 00:03:01,047 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-10 00:03:01,049 - INFO - send_receive - command completed successful
+2019-11-10 00:03:01,050 - INFO - read_measurement_values - read measured values ...
+2019-11-10 00:03:01,050 - INFO - send_receive - sending command 0x1 ...
+2019-11-10 00:03:01,052 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-10 00:03:02,555 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-10 00:03:02,556 - INFO - send_receive - command completed successful
+2019-11-10 00:04:06,404 - INFO - <module> - ---------- script started ----------
+2019-11-10 00:04:06,408 - INFO - stop_measurement - stop measurement ...
+2019-11-10 00:04:06,409 - INFO - send_receive - sending command 0x1 ...
+2019-11-10 00:04:06,410 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-10 00:04:07,912 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-10 00:04:07,914 - ERROR - send_receive - command failed with error: Command not allowed in current state
+2019-11-10 00:04:07,915 - INFO - start_measurement - start measurement ...
+2019-11-10 00:04:07,916 - INFO - send_receive - sending command 0x0 ...
+2019-11-10 00:04:07,917 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-10 00:04:09,421 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-10 00:04:09,422 - INFO - send_receive - command completed successful
+2019-11-10 00:04:09,423 - INFO - read_measured_values - read measured values ...
+2019-11-10 00:04:09,424 - INFO - send_receive - sending command 0x3 ...
+2019-11-10 00:04:09,425 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x3', '0x0', '0xfc', '0x7e']
+2019-11-10 00:04:10,929 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x3', '0x0', '0x28', '0x40', '0x8d', '0x1c', '0x5c', '0x41', '0x17', '0xe7', '0x26', '0x41', '0x5a', '0xd0', '0xf6', '0x41', '0x78', '0xbb', '0xa2', '0x41', '0x8c', '0x48', '0x7c', '0x41', '0xe5', '0xd0', '0x57', '0x42', '0x7', '0x1a', '0xc5', '0x42', '0x9', '0xec', '0x6f', '0x42', '0xa', '0x71', '0x7d', '0x5e', '0x3f', '0x8f', '0x53', '0xe6', '0xc5', '0x7e']
+2019-11-10 00:04:10,931 - INFO - send_receive - command completed successful
+2019-11-10 00:49:34,909 - INFO - <module> - ---------- script started ----------
+2019-11-10 00:49:34,915 - INFO - stop_measurement - stop measurement ...
+2019-11-10 00:49:34,917 - INFO - send_receive - sending command 0x1 ...
+2019-11-10 00:49:34,918 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-10 00:49:36,421 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-10 00:49:36,423 - INFO - send_receive - command completed successful
+2019-11-10 00:49:36,424 - INFO - start_measurement - start measurement ...
+2019-11-10 00:49:36,425 - INFO - send_receive - sending command 0x0 ...
+2019-11-10 00:49:36,427 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-10 00:49:37,930 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-10 00:49:37,932 - INFO - send_receive - command completed successful
+2019-11-10 00:49:37,933 - INFO - read_measured_values - read measured values ...
+2019-11-10 00:49:37,934 - INFO - send_receive - sending command 0x3 ...
+2019-11-10 00:49:37,935 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x3', '0x0', '0xfc', '0x7e']
+2019-11-10 00:49:39,439 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x3', '0x0', '0x28', '0x40', '0xa6', '0x73', '0xb9', '0x40', '0xaa', '0xf9', '0xfd', '0x40', '0xaa', '0xf9', '0xfd', '0x40', '0xaa', '0xfa', '0x4', '0x42', '0x14', '0x6e', '0xc6', '0x42', '0x2a', '0x5f', '0x85', '0x42', '0x2a', '0xd0', '0x54', '0x42', '0x2a', '0xd2', '0xa2', '0x42', '0x2a', '0xd3', '0xd0', '0x3e', '0xe7', '0x3b', '0x2c', '0x35', '0x7e']
+2019-11-10 00:49:39,442 - INFO - send_receive - command completed successful
+2019-11-10 00:50:15,762 - INFO - <module> - ---------- script started ----------
+2019-11-10 00:50:15,883 - INFO - stop_measurement - stop measurement ...
+2019-11-10 00:50:15,900 - INFO - send_receive - sending command 0x1 ...
+2019-11-10 00:50:16,069 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-10 00:50:17,630 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-10 00:50:17,926 - INFO - send_receive - command completed successful
+2019-11-10 00:50:17,945 - INFO - start_measurement - start measurement ...
+2019-11-10 00:50:17,963 - INFO - send_receive - sending command 0x0 ...
+2019-11-10 00:50:18,166 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-10 00:50:19,741 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-10 00:50:20,083 - INFO - send_receive - command completed successful
+2019-11-10 00:50:20,109 - INFO - read_measured_values - read measured values ...
+2019-11-10 00:50:20,131 - INFO - send_receive - sending command 0x3 ...
+2019-11-10 00:50:20,307 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x3', '0x0', '0xfc', '0x7e']
+2019-11-10 00:50:21,871 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x3', '0x0', '0x28', '0x40', '0xd7', '0xc4', '0xee', '0x40', '0xea', '0x37', '0x24', '0x40', '0xf4', '0xd0', '0x6a', '0x40', '0xf9', '0x8d', '0x84', '0x42', '0x3c', '0x0', '0x17', '0x42', '0x5a', '0x83', '0x78', '0x42', '0x5c', '0xa7', '0x9f', '0x42', '0x5c', '0xe3', '0x9c', '0x42', '0x5c', '0xef', '0x99', '0x3f', '0x25', '0xd1', '0xad', '0x99', '0x7e']
+2019-11-10 00:50:22,717 - INFO - send_receive - command completed successful
+2019-11-10 00:51:27,753 - INFO - <module> - ---------- script started ----------
+2019-11-10 00:51:27,756 - INFO - stop_measurement - stop measurement ...
+2019-11-10 00:51:27,757 - INFO - send_receive - sending command 0x1 ...
+2019-11-10 00:51:27,758 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-10 00:51:29,261 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-10 00:51:29,263 - INFO - send_receive - command completed successful
+2019-11-10 00:51:29,264 - INFO - start_measurement - start measurement ...
+2019-11-10 00:51:29,265 - INFO - send_receive - sending command 0x0 ...
+2019-11-10 00:51:29,266 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-10 00:51:30,770 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-10 00:51:30,771 - INFO - send_receive - command completed successful
+2019-11-10 00:51:30,772 - INFO - read_measured_values - read measured values ...
+2019-11-10 00:51:30,773 - INFO - send_receive - sending command 0x3 ...
+2019-11-10 00:51:30,774 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x3', '0x0', '0xfc', '0x7e']
+2019-11-10 00:51:32,278 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x3', '0x0', '0x28', '0x40', '0xdb', '0x66', '0xa4', '0x41', '0x96', '0xfe', '0x8c', '0x41', '0xe6', '0xbb', '0x73', '0x42', '0x5', '0x30', '0xfc', '0x41', '0x7b', '0xa8', '0xf0', '0x42', '0x1a', '0x31', '0xda', '0x42', '0x4a', '0x5', '0xcf', '0x42', '0x50', '0xbc', '0x24', '0x42', '0x51', '0xf8', '0x71', '0x3f', '0xd0', '0xa3', '0xd7', '0x74', '0x7e']
+2019-11-10 00:51:32,280 - INFO - send_receive - command completed successful
+2019-11-10 00:51:52,548 - INFO - <module> - ---------- script started ----------
+2019-11-10 00:51:52,668 - INFO - stop_measurement - stop measurement ...
+2019-11-10 00:51:52,684 - INFO - send_receive - sending command 0x1 ...
+2019-11-10 00:51:52,853 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-10 00:51:54,414 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-10 00:51:54,713 - INFO - send_receive - command completed successful
+2019-11-10 00:51:54,733 - INFO - start_measurement - start measurement ...
+2019-11-10 00:51:54,750 - INFO - send_receive - sending command 0x0 ...
+2019-11-10 00:51:54,955 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-10 00:51:56,524 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-10 00:51:56,873 - INFO - send_receive - command completed successful
+2019-11-10 00:51:56,891 - INFO - read_measured_values - read measured values ...
+2019-11-10 00:51:56,909 - INFO - send_receive - sending command 0x3 ...
+2019-11-10 00:51:57,090 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x3', '0x0', '0xfc', '0x7e']
+2019-11-10 00:51:58,652 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x3', '0x0', '0x28', '0x40', '0xc5', '0xe0', '0x30', '0x41', '0x0', '0xf5', '0xa0', '0x41', '0x17', '0xfc', '0x1c', '0x41', '0x22', '0x47', '0x84', '0x42', '0x1d', '0x4a', '0x4d', '0x42', '0x40', '0x60', '0x54', '0x42', '0x47', '0xb8', '0xc3', '0x42', '0x48', '0xb3', '0x29', '0x42', '0x48', '0xe2', '0x2', '0x3f', '0x1e', '0x14', '0x7c', '0x5a', '0x7e']
+2019-11-10 00:51:59,534 - INFO - send_receive - command completed successful
+2019-11-10 00:54:29,361 - INFO - <module> - ---------- script started ----------
+2019-11-10 00:54:29,368 - INFO - stop_measurement - stop measurement ...
+2019-11-10 00:54:29,370 - INFO - send_receive - sending command 0x1 ...
+2019-11-10 00:54:29,372 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-10 00:54:30,875 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-10 00:54:30,877 - INFO - send_receive - command completed successful
+2019-11-10 00:54:30,878 - INFO - start_measurement - start measurement ...
+2019-11-10 00:54:30,879 - INFO - send_receive - sending command 0x0 ...
+2019-11-10 00:54:30,881 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-10 00:54:32,384 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-10 00:54:32,386 - INFO - send_receive - command completed successful
+2019-11-10 00:54:32,387 - INFO - read_measured_values - read measured values ...
+2019-11-10 00:54:32,389 - INFO - send_receive - sending command 0x3 ...
+2019-11-10 00:54:32,390 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x3', '0x0', '0xfc', '0x7e']
+2019-11-10 00:54:33,894 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x3', '0x0', '0x28', '0x3f', '0xde', '0xde', '0x68', '0x40', '0x67', '0x27', '0x4', '0x40', '0xa4', '0xba', '0x16', '0x40', '0xba', '0xb3', '0xb6', '0x40', '0xe9', '0xd9', '0x14', '0x41', '0x38', '0xbd', '0x5f', '0x41', '0x56', '0x73', '0xf9', '0x41', '0x5a', '0x98', '0x60', '0x41', '0x5b', '0x5b', '0xf6', '0x3f', '0x2c', '0xe7', '0x66', '0xa2', '0x7e']
+2019-11-10 00:54:33,897 - INFO - send_receive - command completed successful
+2019-11-10 00:55:16,037 - INFO - <module> - ---------- script started ----------
+2019-11-10 00:55:16,155 - INFO - stop_measurement - stop measurement ...
+2019-11-10 00:55:16,172 - INFO - send_receive - sending command 0x1 ...
+2019-11-10 00:55:16,342 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-10 00:55:17,903 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-10 00:55:18,173 - INFO - send_receive - command completed successful
+2019-11-10 00:55:18,193 - INFO - start_measurement - start measurement ...
+2019-11-10 00:55:18,210 - INFO - send_receive - sending command 0x0 ...
+2019-11-10 00:55:18,414 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-10 00:55:19,985 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-10 00:55:20,353 - INFO - send_receive - command completed successful
+2019-11-10 00:55:20,371 - INFO - read_measured_values - read measured values ...
+2019-11-10 00:55:20,389 - INFO - send_receive - sending command 0x3 ...
+2019-11-10 00:55:20,575 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x3', '0x0', '0xfc', '0x7e']
+2019-11-10 00:55:22,138 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x3', '0x0', '0x28', '0x41', '0x32', '0x57', '0x6b', '0x41', '0x37', '0x30', '0x6a', '0x41', '0x37', '0x30', '0x6a', '0x41', '0x37', '0x30', '0x72', '0x42', '0x9f', '0x8', '0xf9', '0x42', '0xb6', '0x8a', '0xea', '0x42', '0xb7', '0x3', '0xc7', '0x42', '0xb7', '0x6', '0x40', '0x42', '0xb7', '0x7', '0x84', '0x3e', '0xfc', '0x15', '0xc8', '0x76', '0x7e']
+2019-11-10 00:55:23,006 - INFO - send_receive - command completed successful
+2019-11-10 01:03:59,044 - INFO - <module> - ---------- script started ----------
+2019-11-10 01:03:59,047 - INFO - stop_measurement - stop measurement ...
+2019-11-10 01:03:59,048 - INFO - send_receive - sending command 0x1 ...
+2019-11-10 01:03:59,049 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-10 01:04:00,552 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-10 01:04:00,554 - INFO - send_receive - command completed successful
+2019-11-10 01:04:00,555 - INFO - start_measurement - start measurement ...
+2019-11-10 01:04:00,557 - INFO - send_receive - sending command 0x0 ...
+2019-11-10 01:04:00,558 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-10 01:04:02,062 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-10 01:04:02,063 - INFO - send_receive - command completed successful
+2019-11-10 01:04:02,065 - INFO - read_measured_values - read measured values ...
+2019-11-10 01:04:02,066 - INFO - send_receive - sending command 0x3 ...
+2019-11-10 01:04:02,067 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x3', '0x0', '0xfc', '0x7e']
+2019-11-10 01:04:03,571 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x3', '0x0', '0x28', '0x40', '0x27', '0x4f', '0xb0', '0x40', '0xae', '0x4', '0x6a', '0x40', '0xf8', '0x39', '0x67', '0x41', '0xc', '0xb3', '0x71', '0x41', '0x2e', '0xde', '0xc2', '0x41', '0x8a', '0x81', '0x89', '0x41', '0xa0', '0xef', '0x14', '0x41', '0xa4', '0xf', '0x8c', '0x41', '0xa4', '0xa3', '0x32', '0x3f', '0x59', '0xbf', '0x6c', '0x4', '0x7e']
+2019-11-10 01:04:03,578 - INFO - send_receive - command completed successful
+2019-11-10 01:04:57,223 - INFO - <module> - ---------- script started ----------
+2019-11-10 01:04:57,229 - INFO - stop_measurement - stop measurement ...
+2019-11-10 01:04:57,230 - INFO - send_receive - sending command 0x1 ...
+2019-11-10 01:04:57,231 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-10 01:04:58,735 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-10 01:04:58,738 - INFO - send_receive - command completed successful
+2019-11-10 01:04:58,742 - INFO - start_measurement - start measurement ...
+2019-11-10 01:04:58,744 - INFO - send_receive - sending command 0x0 ...
+2019-11-10 01:04:58,745 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-10 01:05:00,249 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-10 01:05:00,251 - INFO - send_receive - command completed successful
+2019-11-10 01:05:00,252 - INFO - read_measured_values - read measured values ...
+2019-11-10 01:05:00,253 - INFO - send_receive - sending command 0x3 ...
+2019-11-10 01:05:00,254 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x3', '0x0', '0xfc', '0x7e']
+2019-11-10 01:05:01,758 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x3', '0x0', '0x28', '0x3f', '0x8f', '0x4e', '0xa', '0x40', '0x75', '0xe3', '0xcc', '0x40', '0xc3', '0x83', '0xe8', '0x40', '0xe3', '0xf6', '0xe', '0x3e', '0xdf', '0x9e', '0x1c', '0x40', '0xa5', '0x43', '0x8e', '0x40', '0xfc', '0x5', '0xdd', '0x41', '0x4', '0x1e', '0x6', '0x41', '0x5', '0x3d', '0x7d', '0x5e', '0x3f', '0xd0', '0xa3', '0xd7', '0x17', '0x7e']
+2019-11-10 01:05:01,760 - INFO - send_receive - command completed successful
+2019-11-10 01:05:27,013 - INFO - <module> - ---------- script started ----------
+2019-11-10 01:05:27,016 - INFO - stop_measurement - stop measurement ...
+2019-11-10 01:05:27,017 - INFO - send_receive - sending command 0x1 ...
+2019-11-10 01:05:27,018 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-10 01:05:28,521 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-10 01:05:28,523 - INFO - send_receive - command completed successful
+2019-11-10 01:05:28,524 - INFO - start_measurement - start measurement ...
+2019-11-10 01:05:28,524 - INFO - send_receive - sending command 0x0 ...
+2019-11-10 01:05:28,526 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-10 01:05:30,029 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-10 01:05:30,031 - INFO - send_receive - command completed successful
+2019-11-10 01:05:30,032 - INFO - read_measured_values - read measured values ...
+2019-11-10 01:05:30,032 - INFO - send_receive - sending command 0x3 ...
+2019-11-10 01:05:30,034 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x3', '0x0', '0xfc', '0x7e']
+2019-11-10 01:05:31,537 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x3', '0x0', '0x28', '0x40', '0xea', '0x4d', '0x5a', '0x41', '0x8a', '0xf3', '0x6f', '0x41', '0xcd', '0x51', '0xd0', '0x41', '0xea', '0xfe', '0x24', '0x41', '0xc4', '0xea', '0x78', '0x42', '0x35', '0x3f', '0xd', '0x42', '0x5d', '0x31', '0x29', '0x42', '0x62', '0xc8', '0x1a', '0x42', '0x63', '0xcf', '0xbe', '0x3f', '0xa7', '0xe9', '0x20', '0x90', '0x7e']
+2019-11-10 01:05:31,545 - INFO - send_receive - command completed successful
+2019-11-10 01:06:22,379 - INFO - <module> - ---------- script started ----------
+2019-11-10 01:06:22,383 - INFO - stop_measurement - stop measurement ...
+2019-11-10 01:06:22,384 - INFO - send_receive - sending command 0x1 ...
+2019-11-10 01:06:22,385 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-10 01:06:23,890 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-10 01:06:23,891 - INFO - send_receive - command completed successful
+2019-11-10 01:06:23,892 - INFO - start_measurement - start measurement ...
+2019-11-10 01:06:23,893 - INFO - send_receive - sending command 0x0 ...
+2019-11-10 01:06:23,894 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-10 01:06:25,397 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-10 01:06:25,398 - INFO - send_receive - command completed successful
+2019-11-10 01:06:25,399 - INFO - read_measured_values - read measured values ...
+2019-11-10 01:06:25,399 - INFO - send_receive - sending command 0x3 ...
+2019-11-10 01:06:25,400 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x3', '0x0', '0xfc', '0x7e']
+2019-11-10 01:06:26,903 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x3', '0x0', '0x28', '0x40', '0xa7', '0x40', '0x77', '0x41', '0x81', '0x65', '0x1a', '0x41', '0xca', '0x37', '0xee', '0x41', '0xea', '0xc7', '0xd', '0x40', '0xdf', '0x5e', '0x98', '0x41', '0xd5', '0xd6', '0xd4', '0x42', '0x16', '0x83', '0x34', '0x42', '0x1c', '0xa4', '0x7d', '0x33', '0x42', '0x1d', '0xc4', '0xb7', '0x3f', '0xd0', '0xa3', '0xd7', '0x6a', '0x7e']
+2019-11-10 01:06:26,911 - INFO - send_receive - command completed successful
+2019-11-10 01:06:37,873 - INFO - <module> - ---------- script started ----------
+2019-11-10 01:06:37,876 - INFO - stop_measurement - stop measurement ...
+2019-11-10 01:06:37,877 - INFO - send_receive - sending command 0x1 ...
+2019-11-10 01:06:37,878 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-10 01:06:39,380 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-10 01:06:39,382 - INFO - send_receive - command completed successful
+2019-11-10 01:06:39,383 - INFO - start_measurement - start measurement ...
+2019-11-10 01:06:39,384 - INFO - send_receive - sending command 0x0 ...
+2019-11-10 01:06:39,386 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-10 01:06:40,889 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-10 01:06:40,891 - INFO - send_receive - command completed successful
+2019-11-10 01:06:40,892 - INFO - read_measured_values - read measured values ...
+2019-11-10 01:06:40,893 - INFO - send_receive - sending command 0x3 ...
+2019-11-10 01:06:40,894 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x3', '0x0', '0xfc', '0x7e']
+2019-11-10 01:06:42,398 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x3', '0x0', '0x28', '0x40', '0xd8', '0x18', '0x62', '0x41', '0x90', '0x3c', '0x70', '0x41', '0xda', '0xfe', '0xee', '0x41', '0xfc', '0x6b', '0xaa', '0x41', '0x88', '0x82', '0xb', '0x42', '0x1b', '0x34', '0x6c', '0x42', '0x48', '0x7d', '0x33', '0x4', '0x42', '0x4e', '0x5e', '0x36', '0x42', '0x4f', '0x86', '0xd7', '0x3f', '0xa4', '0x5', '0xf2', '0x8c', '0x7e']
+2019-11-10 01:06:42,400 - INFO - send_receive - command completed successful
+2019-11-10 01:07:31,672 - INFO - <module> - ---------- script started ----------
+2019-11-10 01:07:31,675 - INFO - stop_measurement - stop measurement ...
+2019-11-10 01:07:31,676 - INFO - send_receive - sending command 0x1 ...
+2019-11-10 01:07:31,677 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-10 01:07:33,180 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-10 01:07:33,181 - INFO - send_receive - command completed successful
+2019-11-10 01:07:33,182 - INFO - start_measurement - start measurement ...
+2019-11-10 01:07:33,183 - INFO - send_receive - sending command 0x0 ...
+2019-11-10 01:07:33,184 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-10 01:07:34,688 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-10 01:07:34,690 - INFO - send_receive - command completed successful
+2019-11-10 01:07:34,691 - INFO - read_measured_values - read measured values ...
+2019-11-10 01:07:34,692 - INFO - send_receive - sending command 0x3 ...
+2019-11-10 01:07:34,693 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x3', '0x0', '0xfc', '0x7e']
+2019-11-10 01:07:36,196 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x3', '0x0', '0x28', '0x40', '0x3e', '0x3b', '0x1d', '0x40', '0x43', '0x66', '0xd8', '0x40', '0x43', '0x66', '0xd8', '0x40', '0x43', '0x66', '0xe0', '0x41', '0xa9', '0xa3', '0x2c', '0x41', '0xc2', '0xb6', '0x4f', '0x41', '0xc3', '0x37', '0x3b', '0x41', '0xc3', '0x39', '0xde', '0x41', '0xc3', '0x3b', '0x37', '0x3e', '0xb2', '0xd4', '0x84', '0xa3', '0x7e']
+2019-11-10 01:07:36,198 - INFO - send_receive - command completed successful
+2019-11-10 01:09:54,668 - INFO - <module> - ---------- script started ----------
+2019-11-10 01:09:54,671 - INFO - stop_measurement - stop measurement ...
+2019-11-10 01:09:54,672 - INFO - send_receive - sending command 0x1 ...
+2019-11-10 01:09:54,673 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-10 01:09:56,175 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-10 01:09:56,177 - INFO - send_receive - command completed successful
+2019-11-10 01:09:56,179 - INFO - start_measurement - start measurement ...
+2019-11-10 01:09:56,179 - INFO - send_receive - sending command 0x0 ...
+2019-11-10 01:09:56,181 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-10 01:09:57,685 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-10 01:09:57,686 - INFO - send_receive - command completed successful
+2019-11-10 01:09:57,691 - INFO - read_measured_values - read measured values ...
+2019-11-10 01:09:57,693 - INFO - send_receive - sending command 0x3 ...
+2019-11-10 01:09:57,694 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x3', '0x0', '0xfc', '0x7e']
+2019-11-10 01:09:59,198 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x3', '0x0', '0x28', '0x40', '0xa0', '0x26', '0xaa', '0x41', '0x10', '0xbd', '0x72', '0x41', '0x45', '0x61', '0x99', '0x41', '0x5c', '0xea', '0xb9', '0x41', '0xc5', '0xff', '0xca', '0x42', '0xc', '0xb1', '0x9d', '0x42', '0x1c', '0xb6', '0xaa', '0x42', '0x1e', '0xef', '0x15', '0x42', '0x1f', '0x58', '0x1c', '0x3f', '0x68', '0x8c', '0x8d', '0xc2', '0x7e']
+2019-11-10 01:09:59,200 - INFO - send_receive - command completed successful
+2019-11-10 01:11:20,269 - INFO - <module> - ---------- script started ----------
+2019-11-10 01:11:20,272 - INFO - stop_measurement - stop measurement ...
+2019-11-10 01:11:20,273 - INFO - send_receive - sending command 0x1 ...
+2019-11-10 01:11:20,274 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-10 01:11:21,777 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-10 01:11:21,779 - INFO - send_receive - command completed successful
+2019-11-10 01:11:21,780 - INFO - read_measured_values - read measured values ...
+2019-11-10 01:11:21,781 - INFO - send_receive - sending command 0x3 ...
+2019-11-10 01:11:21,782 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x3', '0x0', '0xfc', '0x7e']
+2019-11-10 01:11:23,286 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x3', '0x0', '0x28', '0x40', '0xce', '0xc5', '0x6c', '0x40', '0xdd', '0x66', '0xf4', '0x40', '0xe4', '0xfe', '0x2c', '0x40', '0xe8', '0x63', '0x5', '0x42', '0x35', '0x3a', '0x68', '0x42', '0x51', '0xf7', '0x9b', '0x42', '0x53', '0xa3', '0x97', '0x42', '0x53', '0xcf', '0x47', '0x42', '0x53', '0xd8', '0x3b', '0x3f', '0x8', '0xb2', '0x52', '0x95', '0x7e']
+2019-11-10 01:11:23,289 - INFO - send_receive - command completed successful
+2019-11-10 01:11:34,013 - INFO - <module> - ---------- script started ----------
+2019-11-10 01:11:34,018 - INFO - stop_measurement - stop measurement ...
+2019-11-10 01:11:34,019 - INFO - send_receive - sending command 0x1 ...
+2019-11-10 01:11:34,021 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-10 01:11:35,524 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-10 01:11:35,526 - ERROR - send_receive - command failed with error: Command not allowed in current state
+2019-11-10 01:11:35,527 - INFO - read_measured_values - read measured values ...
+2019-11-10 01:11:35,528 - INFO - send_receive - sending command 0x3 ...
+2019-11-10 01:11:35,529 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x3', '0x0', '0xfc', '0x7e']
+2019-11-10 01:11:37,032 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x3', '0x0', '0x0', '0xfc', '0x7e']
+2019-11-10 01:11:37,034 - INFO - send_receive - command completed successful
+2019-11-10 01:11:55,236 - INFO - <module> - ---------- script started ----------
+2019-11-10 01:11:55,241 - INFO - stop_measurement - stop measurement ...
+2019-11-10 01:11:55,242 - INFO - send_receive - sending command 0x1 ...
+2019-11-10 01:11:55,243 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-10 01:11:56,747 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x43', '0x0', '0xbb', '0x7e']
+2019-11-10 01:11:56,750 - ERROR - send_receive - command failed with error: Command not allowed in current state
+2019-11-10 01:11:56,751 - INFO - read_measured_values - read measured values ...
+2019-11-10 01:11:56,752 - INFO - send_receive - sending command 0x3 ...
+2019-11-10 01:11:56,754 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x3', '0x0', '0xfc', '0x7e']
+2019-11-10 01:11:58,257 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x3', '0x0', '0x0', '0xfc', '0x7e']
+2019-11-10 01:11:58,259 - INFO - send_receive - command completed successful

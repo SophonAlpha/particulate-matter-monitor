@@ -1,6 +1,8 @@
 import time
 import serial
 import logging.handlers
+import struct
+import pprint
 
 
 def set_up_logging():
@@ -28,7 +30,7 @@ class SHDLC:
         self.valid_states = ['0x0', '0x1', '0x2', '0x3', '0x4', '0x28', '0x43']
         self.last_cmd = None
         self.buffer_size = 64
-        # self.port = self.open_serial_port()
+        self.port = self.open_serial_port()
 
     def open_serial_port(self):
         port = serial.Serial('/dev/serial0',
@@ -60,7 +62,7 @@ class SHDLC:
         my_logger.info('received MISO frame: {}'.format(miso_frame))
         self.validate_miso_frame(miso_frame)
         check_state(miso_frame)
-        payload = miso_frame[miso_frame[5:-2]]
+        payload = miso_frame[5:-2]
         return payload
 
     def validate_miso_frame(self, miso_frame):
@@ -247,25 +249,37 @@ class SensirionSPS30:
 
     def start_measurement(self):
         data = ['0x1', '0x3']  # as per Sensirion SPS30 datasheet
-        self.shdlc.send_command(self.cmd.start_measurement, data)
-        # TODO: add exception handling for failing send command
-        my_logger.error(err_msg)
-        rsp = self.shdlc.get_response()
-        # try:
-        #     self.shdlc.send_command(self.cmd.start_measurement, data)
-        # except SendCommandError as excinfo:
-        #     # TODO: add error handling code
-        #     pass
-        # except SerialError as excinfo
-        #     # TODO: add error handling code
-        #     pass
-
+        my_logger.info('start measurement ...')
+        rsp = self.send_receive(self.cmd.start_measurement, data)
+        return rsp
 
     def stop_measurement(self):
-        pass
+        data = []
+        my_logger.info('stop measurement ...')
+        rsp = self.send_receive(self.cmd.stop_measurement, data)
+        return rsp
 
-    def read_measurement_values(self):
-        pass
+    def read_measured_values(self):
+        data = []
+        my_logger.info('read measured values ...')
+        rsp = self.send_receive(self.cmd.read_measured_values, data)
+        if rsp != False and rsp != []:
+            hexstr = ['{:02x}'.format(int(byte[2:], 16)) for byte in rsp]
+            mvals = {
+                'mass_concentration_PM1_0': bytes_to_float(hexstr[0:4]),
+                'mass_concentration_PM2_5': bytes_to_float(hexstr[4:8]),
+                'mass_concentration_PM4_0': bytes_to_float(hexstr[8:12]),
+                'mass_concentration_PM10': bytes_to_float(hexstr[12:16]),
+                'number_concentration_PM0_5': bytes_to_float(hexstr[16:20]),
+                'number_concentration_PM1_0': bytes_to_float(hexstr[20:24]),
+                'number_concentration_PM2_5': bytes_to_float(hexstr[24:28]),
+                'number_concentration_PM4_0': bytes_to_float(hexstr[28:32]),
+                'number_concentration_PM10': bytes_to_float(hexstr[32:36]),
+                'typical_particle_size': bytes_to_float(hexstr[36:40]),
+                }
+        else:
+            mvals = {}
+        return mvals
 
     def read_auto_cleaning_interval(self):
         pass
@@ -281,17 +295,35 @@ class SensirionSPS30:
 
     def device_reset(self):
         pass
+    
+    def send_receive(self, cmd, data):
+        my_logger.info('sending command {} ...'.format(cmd))
+        self.shdlc.send_command(cmd, data)
+        try:
+            rsp = self.shdlc.get_response()
+        except StateValidationError as excinfo:
+            err_msg, err_code = excinfo.args
+            my_logger.error('command failed with error: {}'.format(err_msg))
+            rsp = False
+        else:
+            my_logger.info('command completed successful')
+        return rsp
+
+
+def bytes_to_float(hex_bytes):
+    hexstr = ''.join(hex_bytes)
+    return struct.unpack('>f', bytes.fromhex(hexstr))[0]
 
 
 my_logger = set_up_logging()
 
 
 if __name__ == '__main__':
-    # start measurement
+    my_logger.info('---------- script started ----------')
     shdlc = SHDLC()
-#    resp_frame = ['7E', '00', '80', '01', '00', '7D', '5E', '7E']
-#    shdlc.last_cmd = '80'
-#    print(shdlc.validate_miso_frame(resp_frame))
     pm_sensor = SensirionSPS30()
-    resp = pm_sensor.start_measurement()
-    print(resp)
+    pm_sensor.stop_measurement()
+    pm_sensor.start_measurement()
+    resp = pm_sensor.read_measured_values()
+    pm_sensor.stop_measurement()
+    pprint.pprint(resp)
