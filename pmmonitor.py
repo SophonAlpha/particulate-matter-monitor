@@ -16,12 +16,19 @@ def set_up_logging():
     return my_logger
 
 
+class MISOFrameError(Exception):
+    pass
+
+class StateValidationError(Exception):
+    pass
+
+
 class SHDLC:
     def __init__(self):
         self.valid_states = ['0x0', '0x1', '0x2', '0x3', '0x4', '0x28', '0x43']
         self.last_cmd = None
         self.buffer_size = 64
-        self.port = self.open_serial_port()
+        # self.port = self.open_serial_port()
 
     def open_serial_port(self):
         port = serial.Serial('/dev/serial0',
@@ -56,50 +63,49 @@ class SHDLC:
         return data
     
     def validate_miso_frame(self, miso_frame):
-        valid = True
-        err_msg = None
         miso_frame = byte_unstuffing(miso_frame)
         miso_frame_int = [int(byte, 16) for byte in miso_frame]
         chk = calculate_checksum(miso_frame_int[1:-2])
         if not miso_frame[0] == '0x7e':  # start
             valid = False
             err_msg = 'MISO frame start byte {} invalid. Expected: \'{}\'. ' \
-                      'Received: \'{}\''.format(0, '7E', miso_frame[0])
-            my_logger.error(err_msg)
+                      'Received: \'{}\''.format(0, '0x7e', miso_frame[0])
+            raise MISOFrameError(err_msg)
         elif not miso_frame[1] == '0x0':  # address
             valid = False
             err_msg = 'MISO frame address byte {} invalid. Expected: \'{}\'. ' \
-                      'Received: \'{}\''.format(1, '00', miso_frame[1])
-            my_logger.error(err_msg)
+                      'Received: \'{}\''.format(1, '0x0', miso_frame[1])
+            raise MISOFrameError(err_msg)
         elif not miso_frame[2] == self.last_cmd:  # command
             valid = False
             err_msg = 'MISO frame command byte {} invalid. Expected: \'{}\'. ' \
                       'Received: \'{}\''.format(2, self.last_cmd, miso_frame[2])
-            my_logger.error(err_msg)
+            raise MISOFrameError(err_msg)
         elif not miso_frame[3] in self.valid_states:  # state
             valid = False
             txt = ', '.join(self.valid_states)
             err_msg = 'MISO frame state byte {} invalid. Expected one of: \'[{}]\'. ' \
                       'Received: \'{}\''.format(3, txt, miso_frame[3])
-            my_logger.error(err_msg)
+            raise MISOFrameError(err_msg)
         elif not int(miso_frame[4], 16) == len(miso_frame[5:-2]):  # length
             valid = False
             err_msg = 'MISO frame length byte {} invalid. Expected: \'{}\'. ' \
                       'Received: \'{}\''.format(4, len(miso_frame[5:-2]),
                                                 miso_frame_int[4])
-            my_logger.error(err_msg)
+            raise MISOFrameError(err_msg)
         elif not miso_frame_int[-2] == chk:  # checksum
             valid = False
             err_msg = 'MISO frame checksum byte {} invalid. Expected: \'{}\'. ' \
                       'Received: \'{}\''.format(len(miso_frame) - 2,
-                                                format(chk, 'x').upper(),
-                                                format(miso_frame_int[-2], 'x').upper())
+                                                hex(chk),
+                                                hex(miso_frame_int[-2]))
+            raise MISOFrameError(err_msg)
         elif not miso_frame[-1] == '0x7e':  # end
             valid = False
             err_msg = 'MISO frame stop byte {} invalid. Expected: \'{}\'. ' \
-                      'Received: \'{}\''.format(len(miso_frame) - 1, '7E', miso_frame[-1])
-            my_logger.error(err_msg)
-        return valid, err_msg
+                      'Received: \'{}\''.format(len(miso_frame) - 1, '0x7e', miso_frame[-1])
+            raise MISOFrameError(err_msg)
+        return
 
 
 class Commands:
@@ -121,16 +127,18 @@ class SensirionSPS30:
 
     def start_measurement(self):
         data = ['0x1', '0x3']  # as per Sensirion SPS30 datasheet
-        try:
-            self.shdlc.send_command(self.cmd.start_measurement, data)
-        except SendCommandError as err:
-            # TODO: add error handling code
-            pass
-        except SerialError as err
-            # TODO: add error handling code
-            pass
-        
+        self.shdlc.send_command(self.cmd.start_measurement, data)
+        my_logger.error(err_msg)
         rsp = self.shdlc.get_response()
+        # try:
+        #     self.shdlc.send_command(self.cmd.start_measurement, data)
+        # except SendCommandError as err:
+        #     # TODO: add error handling code
+        #     pass
+        # except SerialError as err
+        #     # TODO: add error handling code
+        #     pass
+
 
     def stop_measurement(self):
         pass
@@ -179,7 +187,7 @@ def build_mosi_frame(command, data=''):
     check = '0x{:x}'.format(check)
     frame.append(check)  # check
     frame.append('0x7e')  # stop
-    frame = [byte.upper() for byte in frame]
+    frame = [byte for byte in frame]
     frame = byte_stuffing(frame)
     return frame
 

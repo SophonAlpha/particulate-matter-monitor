@@ -8,48 +8,58 @@ import pytest
 import pmmonitor
 
 TESTS_BUILD_MOSI_FRAME = [
-    ('00', '01 03', '7E0000020103F97E'),  # Start Measurement (CMD: 0x00)
-    ('01', '', '7E000100FE7E'),  # Stop Measurement (CMD: 0x01)
-    ('03', '', '7E000300FC7E'),  # Read Measured Values (CMD: 0x03)
-    ('80', '00', '7E008001007D5E7E'),  # Read Auto Cleaning Interval (CMD: 0x80)
-    ('80', '00 00 00 00 00', '7E00800500000000007A7E'),  # Write Auto Cleaning Interval (CMD: 0x80)
-    ('56', '', '7E005600A97E'),  # Start Fan Cleaning (CMD: 0x56)
-    ('D0', '01', '7E00D001012D7E'),  # Device Information - Product Name (CMD 0xD0)
-    ('D0', '02', '7E00D001022C7E'),  # Device Information - Article Code (CMD 0xD0)
-    ('D0', '03', '7E00D001032B7E'),  # Device Information - Serial Number (CMD 0xD0)
-    ('D3', '', '7E00D3002C7E'),  # Device Reset (CMD: 0xD3)
+    ('0x0', ['0x1', '0x3'],
+     ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']),  # Start Measurement (CMD: 0x00)
+    ('0x1', [],
+     ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']),  # Stop Measurement (CMD: 0x01)
+    ('0x3', [],
+     ['0x7e', '0x0', '0x3', '0x0', '0xfc', '0x7e']),  # Read Measured Values (CMD: 0x03)
+    ('0x80', ['0x0'],
+     ['0x7e', '0x0', '0x80', '0x1', '0x0', '0x7d', '0x5e', '0x7e']),  # Read Auto Cleaning Interval (CMD: 0x80)
+    ('0x80', ['0x0', '0x0', '0x0', '0x0', '0x0'],
+     ['0x7e', '0x0', '0x80', '0x5', '0x0', '0x0', '0x0', '0x0', '0x0', '0x7a', '0x7e']),  # Write Auto Cleaning Interval (CMD: 0x80)
+    ('0x56', [],
+     ['0x7e', '0x0', '0x56', '0x0', '0xa9', '0x7e']),  # Start Fan Cleaning (CMD: 0x56)
+    ('0xd0', ['0x1'],
+     ['0x7e', '0x0', '0xd0', '0x1', '0x1', '0x2d', '0x7e']),  # Device Information - Product Name (CMD 0xD0)
+    ('0xd0', ['0x2'],
+     ['0x7e', '0x0', '0xd0', '0x1', '0x2', '0x2c', '0x7e']),  # Device Information - Article Code (CMD 0xD0)
+    ('0xd0', ['0x3'],
+     ['0x7e', '0x0', '0xd0', '0x1', '0x3', '0x2b', '0x7e']),  # Device Information - Serial Number (CMD 0xD0)
+    ('0xd3', [],
+     ['0x7e', '0x0', '0xd3', '0x0', '0x2c', '0x7e']),  # Device Reset (CMD: 0xD3)
 ]
 
 TESTS_UNSTUFFING = [
-    (['7E', '00', '80', '01', '00', '7D', '5E', '7E'],
-     ['7E', '00', '80', '01', '00', '7E', '7E']),
-    (['7E', '7D', '5D', '80', '01', '00', '7E', '7E'],
-     ['7E', '7D', '80', '01', '00', '7E', '7E']),
-    (['7D', '31', '00', '80', '01', '00', '7E', '7E'],
-     ['11', '00', '80', '01', '00', '7E', '7E']),
-    (['7E', '00', '80', '01', '00', '7E', '7D', '33'],
-     ['7E', '00', '80', '01', '00', '7E', '13']),
-    (['7D', '5E', '7D', '5D', '7D', '31', '7D', '33', '00', '7E', '7E'],
-     ['7E', '7D', '11', '13', '00', '7E', '7E']),
+    (['0x7e', '0x0', '0x80', '0x1', '0x0', '0x7d', '0x5e', '0x7e'],
+     ['0x7e', '0x0', '0x80', '0x1', '0x0', '0x7e', '0x7e']),
+    (['0x7e', '0x7d', '0x5d', '0x80', '0x1', '0x0', '0x7e', '0x7e'],
+     ['0x7e', '0x7d', '0x80', '0x1', '0x0', '0x7e', '0x7e']),
+    (['0x7d', '0x31', '0x0', '0x80', '0x1', '0x0', '0x7e', '0x7e'],
+     ['0x11', '0x0', '0x80', '0x1', '0x0', '0x7e', '0x7e']),
+    (['0x7e', '0x0', '0x80', '0x1', '0x0', '0x7e', '0x7d', '0x33'],
+     ['0x7e', '0x0', '0x80', '0x1', '0x0', '0x7e', '0x13']),
+    (['0x7d', '0x5e', '0x7d', '0x5d', '0x7d', '0x31', '0x7d', '0x33', '0x0', '0x7e', '0x7e'],
+     ['0x7e', '0x7d', '0x11', '0x13', '0x0', '0x7e', '0x7e']),
 ]
 
 TESTS_VALIDATE_MISO_FRAME = [
-    (['7E', '00', '80', '01', '00', '7D', '5E', '7E'], '80',
-     True, None),  # correct frame
-    (['7F', '00', '80', '01', '00', '7D', '5E', '7E'], '80', False,
-     'MISO frame start byte 0 invalid. Expected: \'7E\'. Received: \'7F\''),  # wrong start byte
-    (['7E', '01', '80', '01', '00', '7D', '5E', '7E'], '80', False,
-     'MISO frame address byte 1 invalid. Expected: \'00\'. Received: \'01\''),  # wrong address byte
-    (['7E', '00', '66', '01', '00', '7D', '5E', '7E'], '80', False,
-     'MISO frame command byte 2 invalid. Expected: \'80\'. Received: \'66\''),  # wrong command byte
-    (['7E', '00', '80', '44', '00', '7D', '5E', '7E'], '80', False,
-     'MISO frame state byte 3 invalid. Expected one of: \'[00, 01, 02, 03, 04, 28, 43]\'. Received: \'44\''),  # wrong state byte
-    (['7E', '00', '80', '01', '01', '7D', '5E', '7E'], '80', False,
+    # (['7E', '00', '80', '01', '00', '7D', '5E', '7E'], '80',
+    #  None),  # correct frame
+    (['0x7f', '0x0', '0x80', '0x1', '0x0', '0x7d', '0x5e', '0x7e'], '0x80',
+     'MISO frame start byte 0 invalid. Expected: \'0x7e\'. Received: \'0x7f\''),  # wrong start byte
+    (['0x7e', '0x1', '0x80', '0x1', '0x0', '0x7d', '0x5e', '0x7e'], '0x80',
+     'MISO frame address byte 1 invalid. Expected: \'0x0\'. Received: \'0x1\''),  # wrong address byte
+    (['0x7e', '0x0', '0x66', '0x1', '0x0', '0x7d', '0x5e', '0x7e'], '0x80',
+     'MISO frame command byte 2 invalid. Expected: \'0x80\'. Received: \'0x66\''),  # wrong command byte
+    (['0x7e', '0x0', '0x80', '0x44', '0x0', '0x7d', '0x5e', '0x7e'], '0x80',
+     'MISO frame state byte 3 invalid. Expected one of: \'[0x0, 0x1, 0x2, 0x3, 0x4, 0x28, 0x43]\'. Received: \'0x44\''),  # wrong state byte
+    (['0x7e', '0x0', '0x80', '0x1', '0x1', '0x7d', '0x5e', '0x7e'], '0x80',
      'MISO frame length byte 4 invalid. Expected: \'0\'. Received: \'1\''),  # wrong state length
-    (['7E', '00', '80', '01', '00', '7D', '5D', '7E'], '80', False,
-     'MISO frame checksum byte 5 invalid. Expected: \'7E\'. Received: \'7D\''),  # wrong checksum
-    (['7E', '00', '80', '01', '00', '7D', '5E', '7F'], '80', False,
-     'MISO frame end byte 6 invalid. Expected: \'7E\'. Received: \'7F\''),  # wrong end byte
+    (['0x7e', '0x0', '0x80', '0x1', '0x0', '0x7d', '0x5d', '0x7e'], '0x80',
+     'MISO frame checksum byte 5 invalid. Expected: \'0x7e\'. Received: \'0x7d\''),  # wrong checksum
+    (['0x7e', '0x0', '0x80', '0x1', '0x0', '0x7d', '0x5e', '0x7f'], '0x80',
+     'MISO frame stop byte 6 invalid. Expected: \'0x7e\'. Received: \'0x7f\''),  # wrong end byte
 ]
 
 @pytest.mark.parametrize('command, data, solution', TESTS_BUILD_MOSI_FRAME)
@@ -66,12 +76,12 @@ def test_frame_unstuffing(frame, unstuffed_frame):
     assert frame == unstuffed_frame
 
 
-@pytest.mark.parametrize('resp_frame, last_cmd, valid, err_msg',
+@pytest.mark.parametrize('resp_frame, last_cmd, err_msg',
                          TESTS_VALIDATE_MISO_FRAME)
-def test_frame_unstuffing(resp_frame, last_cmd, valid, err_msg):
+def test_validate_miso_frame(resp_frame, last_cmd, err_msg):
     """ tests """
     shdlc = pmmonitor.SHDLC()
     shdlc.last_cmd = last_cmd
-    resp_valid, resp_err_msg = shdlc.validate_miso_frame(resp_frame)
-    assert resp_valid == valid
-    assert resp_err_msg == err_msg
+    with pytest.raises(pmmonitor.MISOFrameError) as excinfo:
+        shdlc.validate_miso_frame(resp_frame)
+    assert excinfo.value.args[0] == err_msg
