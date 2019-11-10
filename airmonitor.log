@@ -1491,3 +1491,14 @@
 2019-11-10 10:22:02,662 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
 2019-11-10 10:22:04,166 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
 2019-11-10 10:22:04,167 - INFO - send_receive - command completed successful
+2019-11-10 15:09:29,641 - INFO - <module> - ---------- script started ----------
+2019-11-10 16:33:40,907 - INFO - <module> - ---------- script started ----------
+2019-11-10 16:33:40,908 - INFO - <module> - reading configuration file
+2019-11-10 16:34:33,916 - INFO - <module> - ---------- script started ----------
+2019-11-10 16:34:33,916 - INFO - <module> - reading configuration file
+2019-11-10 16:35:31,934 - INFO - <module> - ---------- script started ----------
+2019-11-10 16:35:31,934 - INFO - <module> - reading configuration file
+2019-11-10 16:37:34,319 - INFO - <module> - ---------- script started ----------
+2019-11-10 16:37:34,319 - INFO - <module> - reading configuration file
+2019-11-10 16:39:53,674 - INFO - <module> - ---------- script started ----------
+2019-11-10 16:39:53,674 - INFO - <module> - reading configuration file

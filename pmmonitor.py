@@ -1,9 +1,18 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+
+import argparse
+import yaml
+import platform
 import time
 import serial
 import logging.handlers
 import struct
 import pprint
-
+import requests
+from influxdb import InfluxDBClient
+import datetime
 
 def set_up_logging():
     # set up logging, rotating log file, max. file size 100 MBytes
@@ -21,6 +30,7 @@ def set_up_logging():
 class MISOFrameError(Exception):
     pass
 
+
 class StateValidationError(Exception):
     pass
 
@@ -30,7 +40,8 @@ class SHDLC:
         self.valid_states = ['0x0', '0x1', '0x2', '0x3', '0x4', '0x28', '0x43']
         self.last_cmd = None
         self.buffer_size = 64
-        self.port = self.open_serial_port()
+        if platform.system() == 'Linux':
+            self.port = self.open_serial_port()
 
     def open_serial_port(self):
         port = serial.Serial('/dev/serial0',
@@ -341,17 +352,58 @@ def bytes_to_float(hex_bytes):
     return struct.unpack('>f', bytes.fromhex(hexstr))[0]
 
 
+class Database:
+
+    def __init__(self, host, port, dbuser, dbuser_password, dbname):
+        self.client = InfluxDBClient(host, port,
+                                     dbuser, dbuser_password,
+                                     dbname)
+        my_logger.info('database configuration: host: {}:{}, '
+                       'user: {}, database: {}'.format(host, port,
+                                                       dbuser, dbname))
+
+    def write(self, data, measurement):
+        my_logger.info('writing {} attributes for measurement \'{}\' to '
+                       'database'.format(len(data.keys()), measurement))
+        try:
+            self.client.write_points(data, measurement)
+        except requests.exceptions.ConnectionError as err:
+            my_logger.error('writing to database failed with '
+                            'error: \'{}\'.'.format(err))
+        else:
+            my_logger.error('no data to write to database')
+
+
+def parse_args():
+    """ parse the args from the command line call """
+    parser = argparse.ArgumentParser(description='Read sensor data.')
+    parser.add_argument('-c', '--config', type=str,
+                        default='airmonitor_config.yml',
+                        help='configuration file')
+    return parser.parse_args()
+
+
+# TODO: amend logging to work across multiple modules
 my_logger = set_up_logging()
 
 
 if __name__ == '__main__':
     my_logger.info('---------- script started ----------')
+    my_logger.info('reading configuration file')
+    args = parse_args()
+    with open(args.config, 'r') as ymlfile:
+        cfg = yaml.load(ymlfile)
+    database = Database(host=cfg['database']['host'],
+                        port=cfg['database']['port'],
+                        dbuser=cfg['database']['user'],
+                        dbuser_password=cfg['database']['password'],
+                        dbname=cfg['database']['name'])
     shdlc = SHDLC()
     pm_sensor = SensirionSPS30()
     pm_sensor.device_reset()
     resp = pm_sensor.get_device_information()
     print(resp)
-
+    database.write(resp)
     resp = pm_sensor.read_auto_cleaning_interval()
     print('current sensor cleaning interval: {:,} seconds'.format(resp))
     pm_sensor.write_auto_cleaning_interval(65535)
@@ -362,10 +414,30 @@ if __name__ == '__main__':
     pm_sensor.start_measurement()
     print('measurements before cleaning:')
     resp = pm_sensor.read_measured_values()
-    pprint.pprint(resp)    
+    resp['time'] = datetime.datetime.now()
+    pprint.pprint(resp)
+
+
+
     pm_sensor.start_fan_cleaning()
     time.sleep(12)
     print('measurements after cleaning:')
     resp = pm_sensor.read_measured_values()
     pprint.pprint(resp)
     pm_sensor.stop_measurement()
+
+"""
+sample data set:
+
+{'mass_concentration_PM10': 24.793033599853516,
+ 'mass_concentration_PM1_0': 5.654967784881592,
+ 'mass_concentration_PM2_5': 14.363791465759277,
+ 'mass_concentration_PM4_0': 21.570804595947266,
+ 'number_concentration_PM0_5': 16.348175048828125,
+ 'number_concentration_PM10': 43.681671142578125,
+ 'number_concentration_PM1_0': 33.58399963378906,
+ 'number_concentration_PM2_5': 42.244510650634766,
+ 'number_concentration_PM4_0': 43.458168029785156,
+ 'typical_particle_size': 1.240288496017456}
+
+"""
