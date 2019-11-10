@@ -282,19 +282,44 @@ class SensirionSPS30:
         return mvals
 
     def read_auto_cleaning_interval(self):
-        pass
+        data = ['0x0']  # subcommand, must be '0x0'
+        my_logger.info('read auto cleaning interval ...')
+        rsp = self.send_receive(self.cmd.read_auto_cleaning_interval, data)
+        interval = int(''.join([byte[2:] for byte in rsp]), 16)
+        return interval
 
-    def write_auto_cleaning_interval(self):
-        pass
+    def write_auto_cleaning_interval(self, interval):
+        data_hex = '{:08x}'.format(interval)
+        data = ['0x0']  # subcommand, must be '0x0'
+        data.extend(['0x' + data_hex[pos:pos + 2] for pos in range(0, len(data_hex), 2)])
+        my_logger.info('write auto cleaning interval ...')
+        rsp = self.send_receive(self.cmd.write_auto_cleaning_interval, data)
+        return rsp
 
     def start_fan_cleaning(self):
-        pass
+        data = []
+        my_logger.info('start fan cleaning ...')
+        rsp = self.send_receive(self.cmd.start_fan_cleaning, data)
+        return rsp
 
     def get_device_information(self):
-        pass
+        dev_info = {
+            'product_name': ['0x1'],
+            'article_code': ['0x2'],
+            'serial_number': ['0x3'],
+            }
+        dev_info_txt = {}
+        for info in dev_info:
+            my_logger.info('get device information for {} ...'.format(info))
+            rsp = self.send_receive(self.cmd.device_information, dev_info[info])
+            dev_info_txt[info] = ''.join([chr(int(char, 0)) for char in rsp[:-1]])               
+        return dev_info_txt
 
     def device_reset(self):
-        pass
+        data = []
+        my_logger.info('do device reset ...')
+        rsp = self.send_receive(self.cmd.device_reset, data)
+        return rsp
     
     def send_receive(self, cmd, data):
         my_logger.info('sending command {} ...'.format(cmd))
@@ -311,6 +336,7 @@ class SensirionSPS30:
 
 
 def bytes_to_float(hex_bytes):
+    # TODO: add testcases
     hexstr = ''.join(hex_bytes)
     return struct.unpack('>f', bytes.fromhex(hexstr))[0]
 
@@ -322,8 +348,24 @@ if __name__ == '__main__':
     my_logger.info('---------- script started ----------')
     shdlc = SHDLC()
     pm_sensor = SensirionSPS30()
-    pm_sensor.stop_measurement()
+    pm_sensor.device_reset()
+    resp = pm_sensor.get_device_information()
+    print(resp)
+
+    resp = pm_sensor.read_auto_cleaning_interval()
+    print('current sensor cleaning interval: {:,} seconds'.format(resp))
+    pm_sensor.write_auto_cleaning_interval(65535)
+    resp = pm_sensor.read_auto_cleaning_interval()
+    print('new sensor cleaning interval: {:,} seconds'.format(resp))
+    pm_sensor.write_auto_cleaning_interval(604800)
+
     pm_sensor.start_measurement()
+    print('measurements before cleaning:')
     resp = pm_sensor.read_measured_values()
-    pm_sensor.stop_measurement()
+    pprint.pprint(resp)    
+    pm_sensor.start_fan_cleaning()
+    time.sleep(12)
+    print('measurements after cleaning:')
+    resp = pm_sensor.read_measured_values()
     pprint.pprint(resp)
+    pm_sensor.stop_measurement()
