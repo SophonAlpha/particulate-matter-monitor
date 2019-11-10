@@ -362,11 +362,11 @@ class Database:
                        'user: {}, database: {}'.format(host, port,
                                                        dbuser, dbname))
 
-    def write(self, data, measurement):
+    def write(self, data):
         my_logger.info('writing {} attributes for measurement \'{}\' to '
-                       'database'.format(len(data.keys()), measurement))
+                       'database'.format(len(data[0]['fields'].keys()), data[0]['measurement']))
         try:
-            self.client.write_points(data, measurement)
+            self.client.write_points(data)
         except requests.exceptions.ConnectionError as err:
             my_logger.error('writing to database failed with '
                             'error: \'{}\'.'.format(err))
@@ -400,24 +400,26 @@ if __name__ == '__main__':
                         dbname=cfg['database']['name'])
     shdlc = SHDLC()
     pm_sensor = SensirionSPS30()
-    pm_sensor.device_reset()
-    resp = pm_sensor.get_device_information()
-    print(resp)
-    database.write(resp)
-    resp = pm_sensor.read_auto_cleaning_interval()
-    print('current sensor cleaning interval: {:,} seconds'.format(resp))
-    pm_sensor.write_auto_cleaning_interval(65535)
-    resp = pm_sensor.read_auto_cleaning_interval()
-    print('new sensor cleaning interval: {:,} seconds'.format(resp))
-    pm_sensor.write_auto_cleaning_interval(604800)
+#    pm_sensor.device_reset()
+#    resp = pm_sensor.get_device_information()
+#    print(resp)
+#    resp = pm_sensor.read_auto_cleaning_interval()
+#    print('current sensor cleaning interval: {:,} seconds'.format(resp))
+#    pm_sensor.write_auto_cleaning_interval(65535)
+#    resp = pm_sensor.read_auto_cleaning_interval()
+#    print('new sensor cleaning interval: {:,} seconds'.format(resp))
+#    pm_sensor.write_auto_cleaning_interval(604800)
 
     pm_sensor.start_measurement()
     print('measurements before cleaning:')
     resp = pm_sensor.read_measured_values()
-    resp['time'] = datetime.datetime.now()
-    pprint.pprint(resp)
-
-
+    data_json = [{
+        'measurement': cfg['SensirionSPS30']['measurement'],
+        'time': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'),
+        'fields': resp
+        }]
+    pprint.pprint(data_json)
+    database.write(data_json)
 
     pm_sensor.start_fan_cleaning()
     time.sleep(12)
@@ -425,19 +427,3 @@ if __name__ == '__main__':
     resp = pm_sensor.read_measured_values()
     pprint.pprint(resp)
     pm_sensor.stop_measurement()
-
-"""
-sample data set:
-
-{'mass_concentration_PM10': 24.793033599853516,
- 'mass_concentration_PM1_0': 5.654967784881592,
- 'mass_concentration_PM2_5': 14.363791465759277,
- 'mass_concentration_PM4_0': 21.570804595947266,
- 'number_concentration_PM0_5': 16.348175048828125,
- 'number_concentration_PM10': 43.681671142578125,
- 'number_concentration_PM1_0': 33.58399963378906,
- 'number_concentration_PM2_5': 42.244510650634766,
- 'number_concentration_PM4_0': 43.458168029785156,
- 'typical_particle_size': 1.240288496017456}
-
-"""
