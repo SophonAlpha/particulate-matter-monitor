@@ -409,21 +409,26 @@ if __name__ == '__main__':
 #    resp = pm_sensor.read_auto_cleaning_interval()
 #    print('new sensor cleaning interval: {:,} seconds'.format(resp))
 #    pm_sensor.write_auto_cleaning_interval(604800)
-
+    print('start measurement')
     pm_sensor.start_measurement()
-    print('measurements before cleaning:')
-    resp = pm_sensor.read_measured_values()
+    print('wait 10 seconds')
+    time.sleep(10)  # let the sensor fan run for a few seconds before measurements
+    measurements = []
+    for _ in range(3):
+       values = pm_sensor.read_measured_values()
+       print('---------------------------------------')
+       pprint.pprint(values)
+       measurements.append(values)
+       time.sleep(1)
+    measurement_avgs = {}
+    for key in values:
+        measurement_avgs[key] = sum([measurement[key] for measurement in measurements]) / len(measurements)
     data_json = [{
         'measurement': cfg['SensirionSPS30']['measurement'],
-        'time': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'),
-        'fields': resp
+        'time': datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f'),
+        'fields': measurement_avgs
         }]
+    print('---------------------------------------')
     pprint.pprint(data_json)
     database.write(data_json)
-
-    pm_sensor.start_fan_cleaning()
-    time.sleep(12)
-    print('measurements after cleaning:')
-    resp = pm_sensor.read_measured_values()
-    pprint.pprint(resp)
     pm_sensor.stop_measurement()
