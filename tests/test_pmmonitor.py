@@ -109,3 +109,48 @@ def test_validate_miso_state(resp_frame, err_msg, err_code):
         pmmonitor.check_state(resp_frame)
     assert excinfo.value.args[0] == err_msg
     assert excinfo.value.args[1] == err_code
+
+
+def test_start_stop_measurement():
+    """ test """
+    pm_sensor = pmmonitor.SensirionSPS30()
+    ret_start = pm_sensor.start_measurement()
+    ret_stop = pm_sensor.stop_measurement()
+    assert ret_start == []
+    assert ret_stop == []
+
+
+def test_read_measured_values():
+    pm_sensor = pmmonitor.SensirionSPS30()
+    ret_start = pm_sensor.start_measurement()
+    values = pm_sensor.read_measured_values()
+    ret_stop = pm_sensor.stop_measurement()
+    assert ret_start == []
+    assert set(values.keys()) == set(['mass_concentration_PM1_0', 'mass_concentration_PM2_5',
+                                      'mass_concentration_PM4_0', 'mass_concentration_PM10',
+                                      'number_concentration_PM0_5', 'number_concentration_PM1_0',
+                                      'number_concentration_PM2_5', 'number_concentration_PM4_0',
+                                      'number_concentration_PM10','typical_particle_size'])
+    assert all([isinstance(val, float) for val in values.values()])
+    assert ret_stop == []
+
+
+def test_read_auto_cleaning_interval():
+    """ test """
+    pm_sensor = pmmonitor.SensirionSPS30()
+    resp = pm_sensor.read_auto_cleaning_interval()
+    assert resp == 604800
+
+
+def test_write_auto_cleaning_interval():
+    """ test """
+    pm_sensor = pmmonitor.SensirionSPS30()
+    ret_read1 = pm_sensor.read_auto_cleaning_interval()
+    pm_sensor.write_auto_cleaning_interval(65535)
+    ret_read2 = pm_sensor.read_auto_cleaning_interval()
+    pm_sensor.write_auto_cleaning_interval(604800)
+    ret_read3 = pm_sensor.read_auto_cleaning_interval()
+    assert ret_read1 == 604800
+    assert ret_read2 == 65535
+    assert ret_read3 == 604800
+

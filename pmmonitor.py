@@ -403,24 +403,18 @@ if __name__ == '__main__':
 #    pm_sensor.device_reset()
 #    resp = pm_sensor.get_device_information()
 #    print(resp)
-#    resp = pm_sensor.read_auto_cleaning_interval()
-#    print('current sensor cleaning interval: {:,} seconds'.format(resp))
-#    pm_sensor.write_auto_cleaning_interval(65535)
-#    resp = pm_sensor.read_auto_cleaning_interval()
-#    print('new sensor cleaning interval: {:,} seconds'.format(resp))
-#    pm_sensor.write_auto_cleaning_interval(604800)
-    print('start measurement')
+    my_logger.info('start sensor')
     pm_sensor.start_measurement()
-    print('wait 10 seconds')
+    my_logger.info('wait 10 seconds for sensor fan to spin up')
     time.sleep(10)  # let the sensor fan run for a few seconds before measurements
     measurements = []
-    for _ in range(3):
+    for idx in range(3):
+       my_logger.info('take measurement {}'.format(idx + 1))
        values = pm_sensor.read_measured_values()
-       print('---------------------------------------')
-       pprint.pprint(values)
        measurements.append(values)
        time.sleep(1)
     measurement_avgs = {}
+    my_logger.info('calculate averages for measurement values')
     for key in values:
         measurement_avgs[key] = sum([measurement[key] for measurement in measurements]) / len(measurements)
     data_json = [{
@@ -428,7 +422,9 @@ if __name__ == '__main__':
         'time': datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f'),
         'fields': measurement_avgs
         }]
-    print('---------------------------------------')
-    pprint.pprint(data_json)
+    my_logger.info('write {} measurement values to database'.format(len(measurement_avgs)))
     database.write(data_json)
+    my_logger.info('stop sensor')
     pm_sensor.stop_measurement()
+    my_logger.info('---------- script stopped ----------')
+
