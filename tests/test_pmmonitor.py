@@ -4,6 +4,7 @@ https://www.sensirion.com/en/environmental-sensors/particulate-matter-sensors-pm
 """
 
 import pytest
+import time
 
 import pmmonitor
 
@@ -153,4 +154,34 @@ def test_write_auto_cleaning_interval():
     assert ret_read1 == 604800
     assert ret_read2 == 65535
     assert ret_read3 == 604800
+
+
+def test_start_fan_cleaning():
+    """ test """
+    pm_sensor = pmmonitor.SensirionSPS30()
+    ret_start = pm_sensor.start_measurement()
+    ret_clean = pm_sensor.start_fan_cleaning()
+    time.sleep(10)
+    ret_stop = pm_sensor.stop_measurement()
+    assert ret_start == []
+    assert ret_clean == []
+    assert ret_stop == []
+
+
+def test_get_device_information():
+    """ test """
+    pm_sensor = pmmonitor.SensirionSPS30()
+    resp = pm_sensor.get_device_information()
+    assert set(resp.keys()) == set(['article_code',
+                                    'product_name',
+                                    'serial_number'])
+    assert 0 < len(resp['serial_number']) < 33
+    assert isinstance(resp['serial_number'], str)
+
+
+def test_device_reset():
+    """ test """
+    pm_sensor = pmmonitor.SensirionSPS30()
+    resp = pm_sensor.device_reset()
+    assert resp == []
 
