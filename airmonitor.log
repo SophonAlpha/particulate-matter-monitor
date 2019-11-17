@@ -2649,3 +2649,46 @@
 2019-11-16 23:33:44,453 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0xd3', '0x0', '0x2c', '0x7e']
 2019-11-16 23:33:45,956 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0xd3', '0x0', '0x0', '0x2c', '0x7e']
 2019-11-16 23:33:45,958 - INFO - send_receive - command completed successful
+2019-11-17 23:25:12,036 - INFO - <module> - ---------- script started ----------
+2019-11-17 23:25:12,036 - INFO - <module> - reading configuration file
+2019-11-17 23:25:12,057 - INFO - __init__ - database configuration: host: localhost:8086, user: datalogger_usr, database: IoTdata
+2019-11-17 23:25:12,068 - INFO - <module> - start Sensirion SPS30 particulate matter sensor
+2019-11-17 23:25:12,069 - INFO - start_measurement - start measurement ...
+2019-11-17 23:25:12,070 - INFO - send_receive - sending command 0x0 ...
+2019-11-17 23:25:12,071 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x0', '0x2', '0x1', '0x3', '0xf9', '0x7e']
+2019-11-17 23:25:13,574 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x0', '0x0', '0x0', '0xff', '0x7e']
+2019-11-17 23:25:13,575 - INFO - send_receive - command completed successful
+2019-11-17 23:25:13,576 - INFO - <module> - wait 10 seconds for sensor fan to spin up
+2019-11-17 23:25:23,588 - INFO - <module> - take measurement 1
+2019-11-17 23:25:23,589 - INFO - read_measured_values - read measured values ...
+2019-11-17 23:25:23,590 - INFO - send_receive - sending command 0x3 ...
+2019-11-17 23:25:23,591 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x3', '0x0', '0xfc', '0x7e']
+2019-11-17 23:25:25,095 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x3', '0x0', '0x28', '0x41', '0x2a', '0xe7', '0xd0', '0x41', '0x37', '0xc', '0x92', '0x41', '0x3d', '0x5d', '0x9d', '0x41', '0x40', '0x30', '0x9c', '0x42', '0x95', '0xc6', '0x7f', '0x42', '0xad', '0x89', '0xac', '0x42', '0xae', '0xed', '0x9', '0x42', '0xaf', '0x7d', '0x31', '0x60', '0x42', '0xaf', '0x18', '0xd2', '0x3f', '0x22', '0x23', '0x78', '0x78', '0x7e']
+2019-11-17 23:25:25,097 - INFO - send_receive - command completed successful
+2019-11-17 23:25:26,100 - INFO - <module> - take measurement 2
+2019-11-17 23:25:26,101 - INFO - read_measured_values - read measured values ...
+2019-11-17 23:25:26,102 - INFO - send_receive - sending command 0x3 ...
+2019-11-17 23:25:26,104 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x3', '0x0', '0xfc', '0x7e']
+2019-11-17 23:25:27,607 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x3', '0x0', '0x28', '0x41', '0x26', '0xba', '0xda', '0x41', '0x30', '0x98', '0xdb', '0x41', '0x35', '0x17', '0x6f', '0x41', '0x37', '0x19', '0xe7', '0x42', '0x92', '0xcf', '0x60', '0x42', '0xa9', '0xaa', '0x74', '0x42', '0xaa', '0xc5', '0xe3', '0x42', '0xaa', '0xe0', '0x5e', '0x42', '0xaa', '0xe5', '0xfc', '0x3f', '0x1e', '0x21', '0x24', '0x48', '0x7e']
+2019-11-17 23:25:27,609 - INFO - send_receive - command completed successful
+2019-11-17 23:25:28,613 - INFO - <module> - take measurement 3
+2019-11-17 23:25:28,614 - INFO - read_measured_values - read measured values ...
+2019-11-17 23:25:28,618 - INFO - send_receive - sending command 0x3 ...
+2019-11-17 23:25:28,619 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x3', '0x0', '0xfc', '0x7e']
+2019-11-17 23:25:30,122 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x3', '0x0', '0x28', '0x41', '0x22', '0xe1', '0x81', '0x41', '0x2b', '0x60', '0x2b', '0x41', '0x2e', '0xcd', '0x53', '0x41', '0x30', '0x55', '0x85', '0x42', '0x8f', '0xd2', '0x7c', '0x42', '0xa5', '0xf6', '0x39', '0x42', '0xa6', '0xe6', '0x8b', '0x42', '0xa6', '0xfb', '0x3b', '0x42', '0xa6', '0xff', '0xc5', '0x3f', '0x19', '0xfa', '0xd6', '0xbe', '0x7e']
+2019-11-17 23:25:30,123 - INFO - send_receive - command completed successful
+2019-11-17 23:25:31,126 - INFO - <module> - calculate averages for measurement values
+2019-11-17 23:25:31,127 - INFO - <module> - write 10 measurement values to database
+2019-11-17 23:25:31,127 - INFO - write - writing 10 attributes for measurement 'SensirionSPS30' to database
+2019-11-17 23:25:31,157 - ERROR - write - no data to write to database
+2019-11-17 23:25:31,158 - INFO - <module> - stop Sesirion SPS30 particulate matter sensor
+2019-11-17 23:25:31,158 - INFO - stop_measurement - stop measurement ...
+2019-11-17 23:25:31,159 - INFO - send_receive - sending command 0x1 ...
+2019-11-17 23:25:31,159 - INFO - send_command - sending MOSI frame: ['0x7e', '0x0', '0x1', '0x0', '0xfe', '0x7e']
+2019-11-17 23:25:32,662 - INFO - get_response - received MISO frame: ['0x7e', '0x0', '0x1', '0x0', '0x0', '0xfe', '0x7e']
+2019-11-17 23:25:32,664 - INFO - send_receive - command completed successful
+2019-11-17 23:25:32,665 - INFO - <module> - take humidity and temperature measurement from DHT22 sensor
+2019-11-17 23:25:33,199 - INFO - <module> - write 2 measurement values to database
+2019-11-17 23:25:33,200 - INFO - write - writing 2 attributes for measurement 'DHT22' to database
+2019-11-17 23:25:33,252 - ERROR - write - no data to write to database
+2019-11-17 23:25:33,254 - INFO - <module> - ---------- script stopped ----------

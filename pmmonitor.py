@@ -13,6 +13,8 @@ import pprint
 import requests
 from influxdb import InfluxDBClient
 import datetime
+import Adafruit_DHT
+
 
 def set_up_logging():
     # set up logging, rotating log file, max. file size 100 MBytes
@@ -398,9 +400,12 @@ if __name__ == '__main__':
                         dbuser=cfg['database']['user'],
                         dbuser_password=cfg['database']['password'],
                         dbname=cfg['database']['name'])
+
+    #  Sensirion SPS30 particulate matter sensor
+
     shdlc = SHDLC()
     pm_sensor = SensirionSPS30()
-    my_logger.info('start sensor')
+    my_logger.info('start Sensirion SPS30 particulate matter sensor')
     pm_sensor.start_measurement()
     my_logger.info('wait 10 seconds for sensor fan to spin up')
     time.sleep(10)  # let the sensor fan run for a few seconds before measurements
@@ -421,7 +426,26 @@ if __name__ == '__main__':
         }]
     my_logger.info('write {} measurement values to database'.format(len(measurement_avgs)))
     database.write(data_json)
-    my_logger.info('stop sensor')
+    my_logger.info('stop Sesirion SPS30 particulate matter sensor')
     pm_sensor.stop_measurement()
+
+    #  DHT22 humidity and temperature sensor
+
+    my_logger.info('take humidity and temperature measurement from DHT22 sensor')
+    sensor = Adafruit_DHT.DHT22
+    pin = 4
+    humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
+    measurement = {
+        'humidity': humidity,
+        'temperature': temperature,
+        }
+    data_json = [{
+        'measurement': cfg['DHT22']['measurement'],
+        'time': datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S.%f'),
+        'fields': measurement
+        }]
+    my_logger.info('write {} measurement values to database'.format(len(measurement)))
+    database.write(data_json)
+
     my_logger.info('---------- script stopped ----------')
 
