@@ -359,7 +359,7 @@ class Database:
             my_logger.error('writing to database failed with '
                             'error: \'{}\'.'.format(err))
         else:
-            my_logger.error('data written to database')
+            my_logger.info('data written to database')
 
 
 def parse_args():
