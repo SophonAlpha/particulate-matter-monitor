@@ -9,13 +9,13 @@ import time
 import serial
 import logging.handlers
 import struct
-import pprint
 import requests
 from influxdb import InfluxDBClient
 import datetime
 import Adafruit_DHT
 
 
+# noinspection SpellCheckingInspection
 def set_up_logging():
     # set up logging, rotating log file, max. file size 100 MBytes
     my_logger = logging.getLogger('MyLogger')
@@ -42,20 +42,20 @@ class SHDLC:
         self.valid_states = ['0x0', '0x1', '0x2', '0x3', '0x4', '0x28', '0x43']
         self.last_cmd = None
         self.buffer_size = 64
+        self.port = None
         if platform.system() == 'Linux':
-            self.port = self.open_serial_port()
+            self.open_serial_port()
 
     def open_serial_port(self):
-        port = serial.Serial('/dev/serial0',
-                             baudrate=115200,
-                             parity=serial.PARITY_NONE,
-                             stopbits=serial.STOPBITS_ONE,
-                             bytesize=serial.EIGHTBITS,
-                             timeout=1.5)
-        if port.isOpen():
-            port.close()
-        port.open()
-        return port
+        self.port = serial.Serial('/dev/serial0',
+                                  baudrate=115200,
+                                  parity=serial.PARITY_NONE,
+                                  stopbits=serial.STOPBITS_ONE,
+                                  bytesize=serial.EIGHTBITS,
+                                  timeout=1.5)
+        if self.port.isOpen():
+            self.port.close()
+        self.port.open()
 
     def close_serial_port(self):
         self.port.close()
@@ -83,41 +83,34 @@ class SHDLC:
         miso_frame_int = [int(byte, 16) for byte in miso_frame]
         chk = calculate_checksum(miso_frame_int[1:-2])
         if not miso_frame[0] == '0x7e':  # start
-            valid = False
             err_msg = 'MISO frame start byte {} invalid. Expected: \'{}\'. ' \
                       'Received: \'{}\''.format(0, '0x7e', miso_frame[0])
             raise MISOFrameError(err_msg)
         elif not miso_frame[1] == '0x0':  # address
-            valid = False
             err_msg = 'MISO frame address byte {} invalid. Expected: \'{}\'. ' \
                       'Received: \'{}\''.format(1, '0x0', miso_frame[1])
             raise MISOFrameError(err_msg)
         elif not miso_frame[2] == self.last_cmd:  # command
-            valid = False
             err_msg = 'MISO frame command byte {} invalid. Expected: \'{}\'. ' \
                       'Received: \'{}\''.format(2, self.last_cmd, miso_frame[2])
             raise MISOFrameError(err_msg)
         elif not miso_frame[3] in self.valid_states:  # state
-            valid = False
             txt = ', '.join(self.valid_states)
             err_msg = 'MISO frame state byte {} invalid. Expected one of: \'[{}]\'. ' \
                       'Received: \'{}\''.format(3, txt, miso_frame[3])
             raise MISOFrameError(err_msg)
         elif not int(miso_frame[4], 16) == len(miso_frame[5:-2]):  # length
-            valid = False
             err_msg = 'MISO frame length byte {} invalid. Expected: \'{}\'. ' \
                       'Received: \'{}\''.format(4, len(miso_frame[5:-2]),
                                                 miso_frame_int[4])
             raise MISOFrameError(err_msg)
         elif not miso_frame_int[-2] == chk:  # checksum
-            valid = False
             err_msg = 'MISO frame checksum byte {} invalid. Expected: \'{}\'. ' \
                       'Received: \'{}\''.format(len(miso_frame) - 2,
                                                 hex(chk),
                                                 hex(miso_frame_int[-2]))
             raise MISOFrameError(err_msg)
         elif not miso_frame[-1] == '0x7e':  # end
-            valid = False
             err_msg = 'MISO frame stop byte {} invalid. Expected: \'{}\'. ' \
                       'Received: \'{}\''.format(len(miso_frame) - 1, '0x7e',
                                                 miso_frame[-1])
@@ -137,13 +130,8 @@ def build_mosi_frame(command, data=''):
     :param data: the command data
     :return: the MOSI frame as string of bytes in hex notation
     """
-
-    frame = []
-    frame.append('0x7e')  # start
-    frame.append('0x0')  # address
-    frame.append(command)  # command
-    frame.append('0x{:x}'.format(len(data)))  # length
-    frame.extend(data) # TX data
+    frame = ['0x7e', '0x0', command, '0x{:x}'.format(len(data))]
+    frame.extend(data)  # TX data
     check = calculate_checksum([int(frame[1], 16), int(frame[2], 16),
                                 int(frame[3], 16)] + [int(byte, 16)
                                                       for byte in data])
@@ -190,8 +178,7 @@ def byte_stuffing(frame):
         '0x11': ['0x7d', '0x31'],
         '0x13': ['0x7d', '0x33'],
     }
-    new_frame = []
-    new_frame.append(frame[0])  # add start frame
+    new_frame = [frame[0]]
     for index, byte in enumerate(frame[1:-1]):
         if byte in stuffing.keys():
             new_frame.extend(stuffing[byte])
@@ -276,7 +263,7 @@ class SensirionSPS30:
         data = []
         my_logger.info('read measured values ...')
         rsp = self.send_receive(self.cmd.read_measured_values, data)
-        if rsp != False and rsp != []:
+        if rsp is not False and rsp != []:
             hexstr = ['{:02x}'.format(int(byte[2:], 16)) for byte in rsp]
             mvals = {
                 'mass_concentration_PM1_0': bytes_to_float(hexstr[0:4]),
@@ -349,7 +336,6 @@ class SensirionSPS30:
 
 
 def bytes_to_float(hex_bytes):
-    # TODO: add testcases
     hexstr = ''.join(hex_bytes)
     return struct.unpack('>f', bytes.fromhex(hexstr))[0]
 
@@ -373,7 +359,7 @@ class Database:
             my_logger.error('writing to database failed with '
                             'error: \'{}\'.'.format(err))
         else:
-            my_logger.error('no data to write to database')
+            my_logger.error('data written to database')
 
 
 def parse_args():
@@ -385,7 +371,6 @@ def parse_args():
     return parser.parse_args()
 
 
-# TODO: amend logging to work across multiple modules
 my_logger = set_up_logging()
 
 
@@ -410,11 +395,12 @@ if __name__ == '__main__':
     my_logger.info('wait 10 seconds for sensor fan to spin up')
     time.sleep(10)  # let the sensor fan run for a few seconds before measurements
     measurements = []
+    values = None
     for idx in range(3):
-       my_logger.info('take measurement {}'.format(idx + 1))
-       values = pm_sensor.read_measured_values()
-       measurements.append(values)
-       time.sleep(1)
+        my_logger.info('take measurement {}'.format(idx + 1))
+        values = pm_sensor.read_measured_values()
+        measurements.append(values)
+        time.sleep(1)
     measurement_avgs = {}
     my_logger.info('calculate averages for measurement values')
     for key in values:
@@ -448,4 +434,3 @@ if __name__ == '__main__':
     database.write(data_json)
 
     my_logger.info('---------- script stopped ----------')
-
