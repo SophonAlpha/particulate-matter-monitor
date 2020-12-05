@@ -1,8 +1,8 @@
-.idea\*
-.pytest_cache\
-*pycache*\
+.idea/*
+.pytest_cache/
+*pycache*/
 *.pyc
 *.log
 notes.txt
-documents\
+documents/
 InfluxDB_Grafana_backup.sh
