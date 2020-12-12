@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 echo '----- script start -----' > /home/pi/InfluxDB_Grafana_backup.log
 
 # start NAS
