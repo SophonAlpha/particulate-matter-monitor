@@ -9,20 +9,6 @@ from influxdb import DataFrameClient
 import pandas as pd
 
 
-class Database:
-
-    def __init__(self, host, port, dbuser, dbuser_password, dbname):
-        self.client = InfluxDBClient(host, port,
-                                     dbuser, dbuser_password,
-                                     dbname)
-
-    def write(self, data):
-        self.client.write_points(data)
-
-    def read(self):
-        pass
-
-
 def parse_args():
     """ parse the args from the command line call """
     parser = argparse.ArgumentParser(description='Read sensor data.')
